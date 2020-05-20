@@ -1,0 +1,33 @@
+Week 1:
+*BL -> pc yb3t el frames by UART ezay. -2andeel ,Nobe -
+*Wifi module /GSM -Nader -
+**pi -> parsing elf (bash , Python , C ) -Martha  & Mohanad-
+* Linker: exploring Linker script (Marina,2andeeel& Mohanad)
+
+today 
+1- Nadr hy5ls GSM / wifi.
+2- Martha sh3'ala fel linux parsing & servers with pi.
+3- Marina linker ezay a7ot var f makan sabet
+4- 2andeel & nobee
+
+tomorrow
+1-PC APP bta3 el parsing & sending frames.
+ Friday
+1- Bootloader  linker script ,  
+Saturday ***************************************************
+cont bootloader
+Sunday 
+OFF
+Monday 
+(7asb nader hysafr wla la2)
+BL with comm (GSM/WIFI)
+
+
+************************************************************Honda Model*************************
+Marina: 20-22/05/2020
+Martha: 20-23/05/2020
+Nader:20-21/05/2020
+2andeel/Nobe: Nharda
+
+
+
