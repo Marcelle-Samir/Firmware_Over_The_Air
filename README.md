@@ -2,4 +2,4 @@
 graduation project of ITI#ARM #RaspberryPi #
 <img align="left" width="100" height="100" src="/home/marcelle/IMG_9893.JPG">
 ![GitHub Logo](/home/marcelle/IMG_9893.JPG)
-[UART](https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c)
+(https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c)
