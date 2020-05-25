@@ -2,9 +2,19 @@
 
 This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc 
 
-## Tutorial for RaspberryPi
-
 Till now we are using the full image of raspbian-buster
+
+## The image for RaspberryPi
+- you can download the Raspian Image from:
+(https://www.raspberrypi.org/downloads/raspbian/)
+
+- First unzip the the downloaded file using unzip command.
+>unzip 2019-09-26-raspbian-buster.zip
+- Then insert your SD card into your laptop, To discover the SD card
+>lsblk -p   (this name should be /dev/mmcblk0 or /dev/sdX)
+- Now time to Copy the unzipped image onto the mounted device using command dd.
+>dd bs=4M if=raspbian.img of=/dev/sdX status=progress conv=fsync
+
 
 ## Enable Ethernet connection
 
@@ -26,16 +36,17 @@ To enable ssh create an empty file named "ssh" in boot directory
 >touch ssh
 
 To enable password authentication, uncomment
->PasswordAuthentication yes
+>sudo nano /etc/ssh/sshd_config
+>#PasswordAuthentication yes   ====>   PasswordAuthentication yes
 
 To connect with RaspberryPi:
 >ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"
->ssh pi@192.168.5.30
+>ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
 
 ## Configure UART on RaspberryPi 
 >sudo raspi-config
 
-append "enable_uart=1" to config.txt
+- add "enable_uart=1" at the end of /boot/config.txt
 
 In PC terminal
 - to make sure it is connected and given a port name by the kernel use:
@@ -60,5 +71,11 @@ You can check the references for further help on how they are created.
 
 ## References
 
+**Connecting to RPI3 - SSH Over Wired**
+(https://www.raspberrypi.org/documentation/remote-access/ssh/README.md)
+(https://www.raspberrypi.org/documentation/configuration/security.md)
+(https://www.raspberrypi.org/documentation/remote-access/ip-address.md)
+(https://elinux.org/RPi_Serial_Connection#Console_serial_parameters)
+(https://pinout.xyz/pinout/uart#)
 **UART configurations of RaspberryPi**
 (https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c)
