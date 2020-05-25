@@ -36,7 +36,7 @@ To enable ssh create an empty file named "ssh" in boot directory
 >touch ssh
 
 To enable password authentication, uncomment
->sudo nano /etc/ssh/sshd_config
+>sudo nano /etc/ssh/sshd_config\
 >#PasswordAuthentication yes   ====>   PasswordAuthentication yes
 
 To connect with RaspberryPi:
@@ -46,7 +46,26 @@ To connect with RaspberryPi:
 ## Configure UART on RaspberryPi 
 >sudo raspi-config
 
-<img src="images/interfacing_options.jpeg" width="100" height="100">
+- select -> interfacing options
+
+<img src="images/interfacing_options.jpeg" width="500">
+
+- then, select seroal option to enable UART
+
+<img src="images/serial.jpeg" width="500">
+
+- then select No to login shell to be accessible over serial
+
+<img src="images/serial__access.jpeg" width="500">
+
+- then select Yes to enable hardware serial port
+
+<img src="images/uart_enable.jpeg" width="500">
+
+- Now our UART is enabled for serial communication on Tx and Rx of RaspberryPi
+
+<img src="images/uart_done.jpeg" width="500">
+
 
 - add "enable_uart=1" at the end of /boot/config.txt
 
@@ -59,6 +78,12 @@ In PC terminal
 >sudo cat /dev/ttyUSB0
 - to test writing to (ex. ttyUSB0) :
 >sudo echo "hello" > /dev/ttyUSB0
+
+- connect your TTL(Tx) ==> RaspberryPi(Rx) and then TTL(Rx) ==>  RaspberryPi(Tx), pins (GPIO14 and GPIO15)
+and cobbect TTL(GND) to RaspberryPi(GND)
+
+<img src="images/uart_pins.jpeg" width="300">
+
 
 In RaspberryPi terminal
 - To check if mini UART (ttyS0) or PL011 UART (ttyAMA0) is mapped to UART pins, enter following commands:
