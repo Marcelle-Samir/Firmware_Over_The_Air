@@ -6,7 +6,7 @@ Till now we are using the full image of raspbian-buster
 
 ## The image for RaspberryPi
 - you can download the Raspian Image from:
-(https://www.raspberrypi.org/downloads/raspbian/)
+https://www.raspberrypi.org/downloads/raspbian/
 
 - First unzip the the downloaded file using unzip command.
 >unzip 2019-09-26-raspbian-buster.zip
@@ -72,10 +72,10 @@ You can check the references for further help on how they are created.
 ## References
 
 **Connecting to RPI3 - SSH Over Wired**
-(https://www.raspberrypi.org/documentation/remote-access/ssh/README.md)
-(https://www.raspberrypi.org/documentation/configuration/security.md)
-(https://www.raspberrypi.org/documentation/remote-access/ip-address.md)
-(https://elinux.org/RPi_Serial_Connection#Console_serial_parameters)
-(https://pinout.xyz/pinout/uart#)
+- https://www.raspberrypi.org/documentation/remote-access/ssh/README.md
+- https://www.raspberrypi.org/documentation/configuration/security.md
+- https://www.raspberrypi.org/documentation/remote-access/ip-address.md
+- https://elinux.org/RPi_Serial_Connection#Console_serial_parameters
+- https://pinout.xyz/pinout/uart#
 **UART configurations of RaspberryPi**
-(https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c)
+- https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c
