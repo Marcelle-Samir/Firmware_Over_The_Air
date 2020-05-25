@@ -45,6 +45,8 @@ To connect with RaspberryPi:
 
 ## Configure UART on RaspberryPi 
 >sudo raspi-config
+#<img src="" width="100" height="100">
+![index](https://user-images.githubusercontent.com/53565795/82834676-17e5c680-9ec2-11ea-9634-5ca27eab4134.jpeg)
 
 - add "enable_uart=1" at the end of /boot/config.txt
 
