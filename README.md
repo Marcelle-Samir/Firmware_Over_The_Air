@@ -77,5 +77,6 @@ You can check the references for further help on how they are created.
 - https://www.raspberrypi.org/documentation/remote-access/ip-address.md
 - https://elinux.org/RPi_Serial_Connection#Console_serial_parameters
 - https://pinout.xyz/pinout/uart#
+
 **UART configurations of RaspberryPi**
 - https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c
