@@ -53,17 +53,17 @@ In PC terminal
 >dmesg  -wH  (ex.  /dev/ttyUSB0 )
 - to change its permissions so you can read and write to it:
 >sudo chmod o+rw /dev/ttyUSB0
-- to test read:
+- to test read from (ex. ttyUSB0):
 >sudo cat /dev/ttyUSB0
-- to test write:
+- to test writing to (ex. ttyUSB0) :
 >sudo echo "hello" > /dev/ttyUSB0
 
-in RaspberryPi terminal
+In RaspberryPi terminal
 - To check if mini UART (ttyS0) or PL011 UART (ttyAMA0) is mapped to UART pins, enter following commands:
 >ls -l /dev
-- to test read from (ttyS0):
+- to test reading from (ttyS0):
 >cat /dev/ttyS0
-- to test write to (ttyS0):
+- to test writing to (ttyS0):
 >echo "hello" > /dev/ttyS0
 
 
