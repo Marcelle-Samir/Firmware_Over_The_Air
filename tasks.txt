@@ -1,0 +1,10 @@
+1- Error Handling
+2- Interrupt cases  ***
+3- Documentation.  
+4- Python GUI & server integration.
+5- Doxcygen.
+6- Charter , Timeline , mile-stones & leader.
+7- Security server.
+8- pi-mc (UART->???). 
+9- additional features.
+10- Bootloaders for different types of mc.
