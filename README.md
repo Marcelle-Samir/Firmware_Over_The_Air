@@ -1,8 +1,8 @@
 # Firmware_Over_The_Air_RaspberryPi
 
-This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc \
+This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc 
 
-Till now we are using the full image of raspbian-buster\
+Till now we are using the full image of raspbian-buster
 
 and also till now we manually put parser.py file and the desired code we want to flash to our st Mc
 
