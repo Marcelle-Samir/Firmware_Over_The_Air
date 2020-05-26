@@ -40,7 +40,7 @@ To enable password authentication, uncomment
 >#PasswordAuthentication yes   ====>   PasswordAuthentication yes
 
 To connect with RaspberryPi:
->ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"
+>ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"\
 >ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
 
 ## Configure UART on RaspberryPi 
