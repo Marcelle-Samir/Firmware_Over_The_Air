@@ -57,7 +57,10 @@ To connect with RaspberryPi:
 
 <img src="images/wifi.png" width="500">
 
-- then enter WiFi Name (SSID) and password.
+- then enter WiFi Name (SSID) and password, now you done with raspi-config.
+
+- then enter this command
+>sudo wpa_cli -i wlan0 reconfigure #it will reply with "OK"
 
 ## connect to RaspberryPi terminal over WIFI
 add those lines to "/etc/network/interfaces"
@@ -66,7 +69,7 @@ add those lines to "/etc/network/interfaces"
 >   wait-delay 30\
 >   pre-up wpa_supplicant -B -Dwext -iwlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf\
 >   post-down killall -q wpa_supplicant\
->   address 192.168.1.30\      
+>   address 192.168.1.30\
 >   netmask 255.255.255.0\
 >   gateway 192.168.1.1
 
