@@ -1,8 +1,10 @@
 # Firmware_Over_The_Air_RaspberryPi
 
-This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc 
+This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc \
 
-Till now we are using the full image of raspbian-buster
+Till now we are using the full image of raspbian-buster\
+
+and also till now we manually put parser.py file and the desired code we want to flash to our st Mc
 
 ## The image for RaspberryPi
 - you can download the Raspian Image from:
@@ -42,6 +44,31 @@ To enable password authentication, uncomment
 To connect with RaspberryPi:
 >ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"\
 >ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
+
+## Enable builtin WIFI
+- enter this in terminal to configure wifi
+>sudo raspi-config
+
+- then select network
+
+<img src="images/network.jpeg" width="500">
+
+- then select WIFI
+
+<img src="images/wifi.jpeg" width="500">
+
+- then enter WiFi Name (SSID) and password.
+
+## connect to RaspberryPi terminal over WIFI
+add those lines to "/etc/network/interfaces"
+>auto wlan0\
+>iface wlan0 inet static\
+>   wait-delay 30\
+>   pre-up wpa_supplicant -B -Dwext -iwlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf\
+>   post-down killall -q wpa_supplicant\
+>   address 192.168.1.30\      
+>   netmask 255.255.255.0\
+>   gateway 192.168.1.1
 
 ## Configure UART on RaspberryPi 
 >sudo raspi-config
@@ -107,3 +134,10 @@ You can check the references for further help on how they are created.
 
 **UART configurations of RaspberryPi**
 - https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c
+
+**RaspberryPi intenet connection over builtin wifi**
+- https://cdn-learn.adafruit.com/downloads/pdf/adafruits-raspberry-pi-lesson-3-network-setup.pdf
+- https://www.raspberrypi.org/forums/viewtopic.php?t=139486
+
+**Python on RaspberryPi**
+- https://www.raspberrypi.org/documentation/linux/software/python.md 
