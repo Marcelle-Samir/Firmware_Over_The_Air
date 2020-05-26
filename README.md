@@ -50,7 +50,7 @@ To connect with RaspberryPi:
 
 <img src="images/interfacing_options.jpeg" width="500">
 
-- then, select seroal option to enable UART
+- then, select serial option to enable UART
 
 <img src="images/serial.jpeg" width="500">
 
