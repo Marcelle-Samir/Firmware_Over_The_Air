@@ -51,11 +51,11 @@ To connect with RaspberryPi:
 
 - then select network
 
-<img src="images/network.png" width="500">
+
 
 - then select WIFI
 
-<img src="images/wifi.png" width="500">
+
 
 - then enter WiFi Name (SSID) and password.
 
