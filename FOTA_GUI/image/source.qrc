@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>What-is-FOTA_01_title.png</file>
+    <file>FOTAimg.jpg</file>
+  </qresource>
+</RCC>

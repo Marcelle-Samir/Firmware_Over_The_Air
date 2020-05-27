@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "plucky-tempo-278512",
+  "private_key_id": "d8e977316c43b06b7fb8a92beffa449ec28848bf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7R9UeFssSiq6j\nlLwcgfNub8l+rlyt2JaT8obgBWxGXb724TYJ8+4mRfInILy8IGL2N86+t7tLVdYR\niK+a99zheP5L16uO5qPWukqjYkDQNVQeo2xAhYSBQsm2uY/imJpB2B0laT3TVCaa\nT68flSZosaf1q+4VK6G0prnHXyMzNBTD0V7NyKrbnrXWL5IIORryKsk71qsZVAek\nBPImB6S3mOUdNSyhbltoJvB2DnCM+R42gTNkReGXDor72BsKJCVzgyYGJlQeIpnt\nIVL5RawT39SV1spkLkdj9GrYTvRh2GS5B6mUhw99w1/qMajTU3JgPgkQ/Fk2qYiJ\nwf/GWcSZAgMBAAECggEAM/3jKnFFeyZJCVy3RGrHO/eIxsR9Mj4Yv4Xq77JRts87\nvqoTKHwxtypf6YDrJIcRMi2YFdZIBsgTn9aEec8p4OaIImIDXK6m+WvKYMVcHPFR\nIxhXayol+QSjnziwu0WGPZVTshkfctW/ycMpaOktOo9ng4pxlCsCv3YxySmeSg5G\n+ok95cH/iKio6klxEsJbKTtAD83twgISzMwAJ7+hqzU4CFp+3B/zS4/lGMwr0G0D\ncfSmeqx1qRp9uZYApMmYG2ZnZE+peqaUOlunxsmLMom+TOgv864b43a9QmatpTg7\ncHSpTDAExEnse5j1JdftBTwvnhtfpOWa25+JrzhVqQKBgQD1wzklGR/x5sk2eKI2\nbnbJajqSkGLYccqLftoS5DUYDLwLR32z+pMfcXme70kvM+f9MF/zcQpCRURvL/BN\nRR54C/bN5v+TkwBH8qbJ1lLqMeMirGbpiuDZTTy8iRjipTk5treCIMDvU+j07kFh\nCgu4MhHVDXRC2qVAS9DqMCrypwKBgQDDFPc5TDNbEXqbjK7+2DZYdaQLoIinSjH7\nlY1L4q4kniiW5J/CZqewFK/XhlvUdiAEeaXfdrHzfuz98Arkfx3A66K0jidC+SpF\nlUjkj5Uo/aL4HWgn0pqglHiw2q36YY8Iqsrv+V6b7IYf02xYH/7/lpZlV1Js+V1L\nzHFjuVS2vwKBgCskv3Zsx7ferPocCVYG5GGNfYTXRhL7PvRoK35fg5aaPbS5My8S\nURuW/yPQnAdmVFaVVHLXKFbj9BSU1NmrxaKLbyNMZxeQGd+HkJIkRuAIK/idTV+4\nWqqrLXtnke/P05D3K5XzjAs3rtC4ts+DRPVsDMdbGkrWOWZlKOLD2/ZHAoGALiZ3\nlgaA37py1vmhLIjZ0nOCK33+1hSnXm0y0BEAQYlo8MmFQegnI3DBaKtQbiLD0Es3\nAnaCAqi0SB7RdNzdnRYhl7VJdH6dkXiPlgKhtuDJ/Qh363PXQMXfB3e0UNdjjxlY\niQzlZN2/nSfXKcHoAW8OhUrzJPSZLaVf7ceaUuECgYEAnoZ0ZPzjdK4QtUkk/Oln\nQIlk5XIVhgOv3DkOSyr5apL9b0nQDwNqqB14nPyKt4bNJm8mvdejaWKjwApoiw6F\novTb03lkWi+9T7/6ibqNMAA1bDXPs2ZfkWd+1qiKTMNAlGDo/THRC2OwLgMDWPj2\nOlZy7FDvQAvkYe5Q/HejhCk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "bootloader@plucky-tempo-278512.iam.gserviceaccount.com",
+  "client_id": "104217244696130743172",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bootloader%40plucky-tempo-278512.iam.gserviceaccount.com"
+}
