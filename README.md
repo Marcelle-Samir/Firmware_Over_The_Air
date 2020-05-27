@@ -129,6 +129,36 @@ You can check the references for further help on how they are created.
 ## Adding python3 lib
 >sudo apt install python3-pyelftools
 
+## google cloud
+we are using google cloud to fetch the .elf from, 
+sign in to google cloud using gmail account
+then create a new project
+
+<img src="images/newproject.png" width="500">
+
+and then create a new bucket inside this project.
+
+Adding google cloud sdk for Debian (from Raspberry by terminal):
+
+- Add the Cloud SDK distribution URI as a package source
+>echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+- Import the Google Cloud Platform public key
+>curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add 
+
+- Update the package list and install the Cloud SDK
+>sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+- initialize the connection with google cloud and select the project to work on.
+> gcloud init
+
+- to upload a file (from Raspberry by terminal)
+
+>gsutil -m cp -R [file name] gs://[Bucket name]/
+
+- to downloaed a file (from Raspberry by terminal)
+
+>gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
 ## References
 
@@ -148,3 +178,9 @@ You can check the references for further help on how they are created.
 
 **Python on RaspberryPi**
 - https://www.raspberrypi.org/documentation/linux/software/python.md 
+
+**google cloud procjet creation and its sdk for Debian**
+- https://cloud.google.com/resource-manager/docs/creating-managing-projects?visit_id=637261915377624130-3117594831&rd=1
+- https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
+- https://cloud.google.com/storage/docs/gsutil/commands/cp
+- https://cloud.google.com/storage/docs/xml-api/get-bucket-encryption-config?hl=en
