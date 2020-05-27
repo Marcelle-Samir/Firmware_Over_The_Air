@@ -160,6 +160,20 @@ and then create a new bucket inside this project.
 
 >gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
+# PC GUI Application
+
+- Adding google cloud compatible python library packages (Windows Cmd)
+>pip install google-cloud-datastore
+>pip install google-cloud-storage
+
+- Creating Service key account for generating .json file (From cloud.google guides)
+<img src="images/Json.png" width="500">.
+
+- Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
+<img src="images/GUI.PNG" width="500">.
+
+
+
 ## References
 
 **Connecting to RPI3 - SSH Over Wired**
@@ -179,8 +193,12 @@ and then create a new bucket inside this project.
 **Python on RaspberryPi**
 - https://www.raspberrypi.org/documentation/linux/software/python.md 
 
-**google cloud procjet creation and its sdk for Debian**
+**google cloud project creation and its sdk for Debian**
 - https://cloud.google.com/resource-manager/docs/creating-managing-projects?visit_id=637261915377624130-3117594831&rd=1
 - https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
 - https://cloud.google.com/storage/docs/gsutil/commands/cp
 - https://cloud.google.com/storage/docs/xml-api/get-bucket-encryption-config?hl=en
+
+**google cloud and python integerarion (Windows)**
+- https://riptutorial.com/google-cloud-storage/example/28256/upload-files-using-python
+- https://pypi.org/project/google-cloud-storage/
