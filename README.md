@@ -126,6 +126,10 @@ In RaspberryPi terminal
 
 You can check the references for further help on how they are created.
 
+## Adding python3 lib
+>sudo apt install python3-pyelftools
+
+
 ## References
 
 **Connecting to RPI3 - SSH Over Wired**
