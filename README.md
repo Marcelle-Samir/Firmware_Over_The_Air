@@ -138,7 +138,7 @@ then create a new project
 
 and then create a new bucket inside this project.
 
-# Adding google cloud sdk for Debian (from Raspberry by terminal):
+**Adding google cloud sdk for Debian (from Raspberry by terminal):**
 
 - Add the Cloud SDK distribution URI as a package source
 >echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
