@@ -130,7 +130,7 @@ You can check the references for further help on how they are created.
 >sudo apt install python3-pyelftools
 
 ## google cloud
-we are using google cloud to fetch the .elf from, 
+we are using google cloud to fetch the .elf from,\
 sign in to google cloud using gmail account
 then create a new project
 
@@ -138,7 +138,7 @@ then create a new project
 
 and then create a new bucket inside this project.
 
-Adding google cloud sdk for Debian (from Raspberry by terminal):
+# Adding google cloud sdk for Debian (from Raspberry by terminal):
 
 - Add the Cloud SDK distribution URI as a package source
 >echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -152,11 +152,11 @@ Adding google cloud sdk for Debian (from Raspberry by terminal):
 - initialize the connection with google cloud and select the project to work on.
 > gcloud init
 
-- to upload a file (from Raspberry by terminal)
+- to upload a file to google cloud (using Raspberry by terminal)
 
 >gsutil -m cp -R [file name] gs://[Bucket name]/
 
-- to downloaed a file (from Raspberry by terminal)
+- to download a file from google cloud (using Raspberry by terminal)
 
 >gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
