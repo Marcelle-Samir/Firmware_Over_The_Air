@@ -167,6 +167,7 @@ and then create a new bucket inside this project.
 >pip install google-cloud-storage
 
 - Creating Service key account for generating .json file (From cloud.google guides)
+<img src="images/Json.png" width="500">.
 
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 <img src="images/GUI.PNG" width="500">.
