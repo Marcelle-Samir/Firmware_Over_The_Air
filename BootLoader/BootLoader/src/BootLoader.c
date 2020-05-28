@@ -223,7 +223,7 @@ void Received_Finished         (void)
 
 static void Reset_Sys (void)
 {
-	SCB_AIRCR |= SFT_RST | PASSWORD_MASK ;
+	SCB_AIRCR = SFT_RST | PASSWORD_MASK ;
 	while (1);
 
 }
