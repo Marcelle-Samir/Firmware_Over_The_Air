@@ -150,7 +150,7 @@ and then create a new bucket inside this project.
 >sudo apt-get update && sudo apt-get install google-cloud-sdk
 
 - initialize the connection with google cloud and select the project to work on.
-> gcloud init
+> gcloud init       # you need to run this command @ (root user) to run elf_fetcher.sh at the boot
 
 - to upload a file to google cloud (using Raspberry by terminal)
 
