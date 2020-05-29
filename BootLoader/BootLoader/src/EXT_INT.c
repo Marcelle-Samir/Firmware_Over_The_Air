@@ -36,7 +36,7 @@ extern EXTI_CFG_t EXTI_CFG[NUMOFEXTI];
 
 CBF_t CBF;
 
-uint_8t EXTI_Init(void){
+uint_8t DEXTI_Init(void){
 
 
 	uint_8t Counter, Local_error =OK ;
@@ -77,7 +77,7 @@ uint_8t EXTI_Init(void){
 	return Local_error;
 }
 
-uint_8t External_IntCBF(CBF_t Call_Back){
+uint_8t DEXTI_SetCBF(CBF_t Call_Back){
 	uint_8t Local_Error = OK;
 	if(Call_Back){
 		CBF = Call_Back;

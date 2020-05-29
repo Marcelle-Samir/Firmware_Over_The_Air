@@ -516,5 +516,6 @@ void DNVIC_voidEnableAllFaults(void);
  ***************************************************************************/
 void DNVIC_voidSetBASEPRI(uint_8t priority);
 
-
+void DNVIC_voidChangeVectorOffset (uint_32t offset);
+void DNVIC_voidSysReset(void);
 #endif /* DNVIC_H_ */

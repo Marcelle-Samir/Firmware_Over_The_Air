@@ -7,6 +7,7 @@
 
 #include "DRCC.h"
 #include "DGPIO.h"
+#include "EXT_INT.h"
 #include "DMA.h"
 #include "DNVIC.h"
 #include "HUART.h"
@@ -14,15 +15,19 @@
 #include "FLITF.h"
 
 #define WORD_SIZE                       4
-#define SCB_AIRCR                      *((volatile uint_32t*) 0XE000ED0C)
-#define SFT_RST                        0x00000004
-#define PASSWORD_MASK                  0X05FA0000
+#define PAGE_SIZE                       0x400
+#define MARKER_PAGE						0x08001C00
+#define CLEAR_WORD						0xFFFFFFFF
+#define APP_START_PAGE					0x08002000
+#define APP_END_PAGE					0x0800FC00
 
-static void Com_Handler               (void);
-static void Receiving_New_App_Req     (void);
-static void Recieve_Data              (void);
-static void Received_Finished         (void);
-static void Reset_Sys                 (void);
+
+static void BootLoaderExistingAppHandler    (void);
+static void Com_Handler               		(void);
+static void Receiving_New_App_Req 		    (void);
+static void Recieve_Data             		(void);
+static void Received_Finished   		    (void);
+static void Reset_Sys                 		(void);
 /*
  * done - hannazelo fe makan sabet fel memory
  * */
@@ -48,6 +53,7 @@ static RespondFrame_t Respond                   ;
 void main (void)
 {
 
+	DEXTI_SetCBF(BootLoaderExistingAppHandler);
 	switch(*Marker)
 	{
 	case APP_FOUND :
@@ -55,19 +61,6 @@ void main (void)
 		asm ("ldr r1, =_estack\n"
 				"mov sp, r1");
 		(*APP_EntryPoint)();
-		break ;
-	case NEW_APP_REQ :
-		/*CBF*/
-		DRCC_SetPriephralStatus (GPIO_A_ENABLE,ON)  ;
-		DRCC_SetPriephralStatus (GPIO_C_ENABLE,ON)  ;
-		DRCC_SetPriephralStatus (USART_1_ENABLE,ON) ;
-		DRCC_SetPriephralStatus(DMA_1_ENABLE,ON)    ;
-		HUART_Init()                               ;
-		/*erase old application*/
-		while(1)
-		{
-			Com_Handler();
-		}
 		break ;
 	case NO_APP :
 		DRCC_SetPriephralStatus (GPIO_A_ENABLE,ON)  ;
@@ -223,7 +216,41 @@ void Received_Finished         (void)
 
 static void Reset_Sys (void)
 {
-	SCB_AIRCR = SFT_RST | PASSWORD_MASK ;
+	uint_32t Delay;
+	for (Delay=0;Delay< 10000;Delay ++)
+	{
+		asm ("NOP");
+	}
+	DNVIC_voidSysReset();
+
 	while (1);
 
+}
+static void BootLoaderExistingAppHandler    (void)
+{
+	uint_8t ramArray [PAGE_SIZE];
+	uint_8t *MarkerPage = (uint_8t *) (MARKER_PAGE);
+	uint_16t Iterator;
+	uint_32t PagesIterator;
+	/*change marker value*/
+	/*Move page to RAM*/
+	for (Iterator=0;Iterator <PAGE_SIZE;Iterator ++)
+	{
+		ramArray[Iterator]=MarkerPage [Iterator];
+	}
+	/*Erase Flash page*/
+	Flash_Unlock();
+	Flash_ErasePage(MARKER_PAGE);
+	/*Change marker value and erase entry point old value in the ram*/
+	*(uint_32t *)&(ramArray[1016])=NO_APP;/*Marker*/
+	*(uint_32t *)&(ramArray[1020])=CLEAR_WORD;/*Entry point*/
+	/*Flash again the marker page after editing*/
+	Flash_ProgramWrite((void *)MARKER_PAGE,ramArray,PAGE_SIZE);
+	/*Erase Application pages*/
+	for  (PagesIterator = APP_START_PAGE ; PagesIterator <= APP_END_PAGE;PagesIterator+=PAGE_SIZE)
+	{
+		Flash_ErasePage(PagesIterator);
+	}
+	/*Reset System*/
+	DNVIC_voidSysReset();
 }

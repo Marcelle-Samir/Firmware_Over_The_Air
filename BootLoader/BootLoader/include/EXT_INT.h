@@ -46,7 +46,7 @@ typedef void (*CBF_t)(void);
 #define EXTI_PORTF         0X101
 #define EXTI_PORTG         0X110
 
-uint_8t EXTI_Init(void);
-uint_8t External_IntCBF(CBF_t Call_Back);
+uint_8t DEXTI_Init(void);
+uint_8t DEXTI_SetCBF(CBF_t Call_Back);
 
 #endif /* EXT_INT_H_ */

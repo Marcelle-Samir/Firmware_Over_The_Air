@@ -125,6 +125,7 @@ uint_8t DRCC_SetPLLConfig (uint_32t src, uint_8t MULL);
 /*************************************
  ************PERIPHERALS**************
  *************************************/
+#define AFIO_ENABLE 	0x20000001
 #define GPIO_A_ENABLE 	0x20000004
 #define GPIO_B_ENABLE 	0x20000008
 #define GPIO_C_ENABLE 	0x20000010

@@ -22,7 +22,6 @@ typedef signed short int int_32t;
 #define RECEIVED_NOK                  2
 
 #define APP_FOUND                     0xAABBCCDD
-#define NEW_APP_REQ                   0x01020304
 #define NO_APP                        0xFFFFFFFF
 
 #define COMMAND_FLASH_NEW_APP         0xAB

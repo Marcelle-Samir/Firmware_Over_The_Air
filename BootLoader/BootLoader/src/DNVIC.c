@@ -10,10 +10,13 @@
 
 #define NVIC_BASE_ADDRESS  (( NVIC_t*) 0XE000E100)
 #define SCB_AIRCR *((volatile uint_32t*) 0XE000ED0C)
-/*#define NVIC_IPR    (( Prior_t*) 0XE000E400)*/
+#define SCB_VTOR  *((volatile uint_32t*) 0xE000ED08)
 
 
 #define PASSWORD_MASK  0X05FA0000
+#define FLASH_BASE_ADDRESS 0x08000000
+#define OFFSET_POSITION 0x08
+#define RESET_MASK 0x04
 
 typedef struct
 {
@@ -200,4 +203,13 @@ void DNVIC_voidSetBASEPRI(uint_8t priority)
 
 	asm("LSLS R0,R0,#4");
 	asm("MSR  BASEPRI, R0");
+}
+void DNVIC_voidChangeVectorOffset (uint_32t offset)
+{
+	SCB_VTOR = FLASH_BASE_ADDRESS | (offset<<OFFSET_POSITION);
+}
+
+void DNVIC_voidSysReset(void)
+{
+	SCB_AIRCR= RESET_MASK|PASSWORD_MASK;
 }
