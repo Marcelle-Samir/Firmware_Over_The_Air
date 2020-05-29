@@ -172,7 +172,7 @@ https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
 >pip install PySide2
 
 - Adding google cloud compatible python library packages (Windows Cmd)
->pip install google-cloud-datastore
+>pip install google-cloud-datastore\
 >pip install google-cloud-storage
 
 - Creating Service key account for generating .json file (From cloud.google guides)
