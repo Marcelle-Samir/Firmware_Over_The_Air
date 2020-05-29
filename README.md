@@ -205,3 +205,6 @@ and then create a new bucket inside this project.
 **google cloud and python integerarion (Windows)**
 - https://riptutorial.com/google-cloud-storage/example/28256/upload-files-using-python
 - https://pypi.org/project/google-cloud-storage/
+
+**others**
+- https://www.raspberrypi.org/documentation/linux/usage/rc-local.md
