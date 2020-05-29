@@ -162,6 +162,15 @@ and then create a new bucket inside this project.
 
 # PC GUI Application
 
+- install python 3.8.1:
+https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
+
+- install pip from (windows CMD)
+>python -m pip install --upgrade pip
+
+- install pySide2
+>pip install PySide2
+
 - Adding google cloud compatible python library packages (Windows Cmd)
 >pip install google-cloud-datastore
 >pip install google-cloud-storage
