@@ -1,0 +1,12 @@
+# after flashing it takes 5 min to reset and start running the application
+# flash new application while running an old one
+# elfparser timeout and error handling
+# elfparser checking on app size
+# bootloader error handling
+
+Gmail:
+bootloader40@gmail.com
+password: Bootloader40#
+
+bucket name:
+fota_auomotive
