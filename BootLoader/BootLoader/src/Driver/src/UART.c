@@ -1,6 +1,6 @@
-#include "DNVIC.h"
-#include "UART.h"
-#include "UART_Private.h"
+#include "../include/DNVIC.h"
+#include "../include/UART.h"
+#include "../include/UART_Private.h"
 
 #define STATE_IDLE	0
 #define STATE_BUSY	1

@@ -5,14 +5,14 @@
  *      Author: Ahmed Qandeel
  */
 
-#include "DRCC.h"
-#include "DGPIO.h"
-#include "EXT_INT.h"
-#include "DMA.h"
-#include "DNVIC.h"
-#include "HUART.h"
-#include "Bootloader_types.h"
-#include "FLITF.h"
+#include "../../Driver/include/DRCC.h"
+#include "../../Driver/include/DGPIO.h"
+#include "../../Driver/include/EXT_INT.h"
+#include "../../Driver/include/DMA.h"
+#include "../../Driver/include/FLITF.h"
+#include "../../Driver/include/DNVIC.h"
+#include "../../HAL/include/HUART.h"
+#include "../include/Bootloader_types.h"
 
 #define WORD_SIZE                       4
 #define PAGE_SIZE                       0x400
@@ -28,14 +28,10 @@ static void Receiving_New_App_Req 		    (void);
 static void Recieve_Data             		(void);
 static void Received_Finished   		    (void);
 static void Reset_Sys                 		(void);
-/*
- * done - hannazelo fe makan sabet fel memory
- * */
+
 static uint_32t * Marker = (uint_32t *) (0x08001FF8)                         ;
 
-/*
- * done - Entry Point fe makan sabet
- * */
+
 typedef void(*EntryPoint_t)(void)               ;
 EntryPoint_t * APP_EntryPoint = (EntryPoint_t *) (0x08001FFC)                ;
 

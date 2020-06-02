@@ -5,9 +5,10 @@
  *      Author: MOSTAFA
  */
 
-
-#include "DMA.h"
-#include "DMA_Cfg.h"
+                  
+#include "../include/DNVIC.h"
+#include "../include/DMA.h"
+#include "../include/DMA_Cfg.h"
 
 #define ENABLE_DMA			1
 #define CHANNELS_MAX_NUMBER	7

@@ -53,7 +53,7 @@ typedef struct
 typedef struct
 {
 	Header_t Header              ;
-	uint_8t key                 ;
+	uint_8t key                  ;
 	uint_32t Address             ;
 	uint_32t Size                ;
 	uint_32t EntryPoint          ;
@@ -64,7 +64,7 @@ typedef struct
 	Header_t Header              ;
 	uint_32t Address             ;
 	uint_32t Size                ;
-	uint_8t Data[MAX_DATA_SIZE] ;
+	uint_8t Data[MAX_DATA_SIZE]  ;
 }FlashWriteSector_t;
 
 typedef struct

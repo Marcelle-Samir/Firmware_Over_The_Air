@@ -4,13 +4,13 @@
  *  Created on: Mar 28, 2020
  *      Author: Mohanad
  */
-#include "DRCC.h"
-#include "DGPIO.h"
-#include "DMA.h"
-#include "UART.h"
-#include "UART_Private.h"
-#include "HUART.h"
-#include "HUART_config.h"
+#include "../../Driver/include/DRCC.h"
+#include "../../Driver/include/DGPIO.h"
+#include "../../Driver/include/DMA.h"
+#include "../../Driver/include/UART.h"
+#include "../../Driver/include/UART_Private.h"
+#include "../include/HUART.h"
+#include "../include/HUART_config.h"
 
 #define UART_DMA_TX_ENABLE		0x00000080
 #define UART_DMA_RX_ENABLE		0x00000040

@@ -5,7 +5,7 @@
  *      Author: Ahmed Qandeel
  */
 
-#include "DNVIC.h"
+#include "../include/DNVIC.h"
 
 
 #define NVIC_BASE_ADDRESS  (( NVIC_t*) 0XE000E100)
