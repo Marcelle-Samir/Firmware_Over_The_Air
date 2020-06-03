@@ -21,7 +21,12 @@ import time
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 import threading
+from tkinter.commondialog import Dialog
+from elftools.elf.elffile import ELFFile , Segment
+from elftools.elf.structs import ELFStructs
 
+
+jsonFile='fotaproject40-b1ae7c61a9cd.json'
 class Ui_Form(object):
     def setupUi(self, Form):
         if Form.objectName():
@@ -107,125 +112,197 @@ class Ui_Form(object):
         self.pushButton_3.clicked.connect(self.pushButton_handler3)
     # retranslateUi
     def pushButton_handler(self):
+        self.textEdit.clear()
         print("Button pressed")
         self.open_dialog_box()
    
     def open_dialog_box(self):
         fileName = QFileDialog.getOpenFileName()
         self.path = fileName[0]
-        self.textEdit.clear()
-        self.textEdit.setText(self.path)
-        print(os.path.basename(self.path))
+        #field = QtGui.extEdit()
         
-        with open(self.path,"r") as f:
-            print(f.readline())
+        if os.path.isfile(self.path) or self.textEdit.toPlainText() != "":
+          self.textEdit.setText(self.path)
+          print(os.path.basename(self.path))
+          x=self.verify_Elf_File()
+          print(x)
+          if os.path.basename(self.path).endswith('.elf') and  self.verify_Elf_File() :
+            self.pushButton_2.setEnabled(True)
+          else:
+            self.pushButton_2.setEnabled(False)
+            msgF = QMessageBox()
+            msgF.setWindowTitle("Warning")
+            msgF.setText("Please Choose an .elf File for uploading !                 ")
+            msgF.setIcon(QMessageBox.Warning)
+            y=msgF.exec_()
+        else :
+          msg2 = QMessageBox()
+          msg2.setWindowTitle("Warning")
+          msg2.setText("Please Choose a File Path !                    ")
+          msg2.setIcon(QMessageBox.Warning)
+          y=msg2.exec_()
+
         
     def pushButton_handler2(self):
-        tree = ET.parse("Request.xml")
-        root = tree.getroot()
-       
-        #f=open("Request.txt","w")
-        #f.seek(0)
-        #print("New Firmware "+self.comboBox.currentText()+" "+os.path.basename(self.path))
-        #f.write("New Firmware "+self.comboBox.currentText()+" "+os.path.basename(self.path))
-        #f.close()
-        
-        for elem in root.iter('Target'):
-          elem.text = self.comboBox.currentText() 
-          
-          
-        for elem in root.iter('Status'):
-          elem.text = "Released"
-        
+        try :
+            #if os.path.basename(self.path).endswith('.elf'):
+            root = ET.Element("data")
+  
+            doc1 = ET.SubElement(root, "FileName").text= os.path.basename(self.path)
+            doc2 = ET.SubElement(root, "Target").text=  self.comboBox.currentText()
+            doc3 = ET.SubElement(root, "Status").text=  "Released"
+            
+            
+            tree1 = ET.ElementTree(root)
+            tree1.write("Request.xml")
 
-        for elem in root.iter('FileName'):
-          elem.text = os.path.basename(self.path)
-
+            tree = ET.parse("Request.xml")
+            root = tree.getroot()
+      
+            
+            
+    
+            f=open(self.path,"r")
+            f.close()
+            #with open("Request.xml",'wb') as fileupdate :
+            #  tree.write(fileupdate)  
+            
+            try:
+              client = storage.Client.from_service_account_json(jsonFile)
+              
+              bucket = client.get_bucket('fotaproject_bucket')
+              self.pathRequest=os.getcwd()
+              print(self.pathRequest)
+              blob1 = bucket.blob("Request.xml")
+              blob1.upload_from_filename(self.pathRequest+"\Request.xml") 
+              
+              blob2 = bucket.blob(os.path.basename(self.path))
+              blob2.upload_from_filename(self.path) 
+              
+            
+              self.counter=0
+              self.flag=0
+              self.checking()
+            except Exception as ex1:
+              msg3 = QMessageBox()
+              msg3.setWindowTitle("Warning")
+              msg3.setText("Failed Connecting to server !                    ")
+              msg3.setIcon(QMessageBox.Warning)
+              y=msg3.exec_()
           
-        with open("Request.xml",'wb') as fileupdate :
-          tree.write(fileupdate)  
-        
-        
-        client = storage.Client.from_service_account_json('fotaproject40-b1ae7c61a9cd.json')
-        
-        bucket = client.get_bucket('fotaproject_bucket')
-        self.pathRequest=os.getcwd()
-        print(self.pathRequest)
-        blob1 = bucket.blob("Request.xml")
-        blob1.upload_from_filename(self.pathRequest+"\Request.xml") 
-        
-        blob2 = bucket.blob(os.path.basename(self.path))
-        blob2.upload_from_filename(self.path) 
-        
-
-        self.counter=0
-        self.flag=0
-        self.checking()
-        
-          
-          
+        except Exception as ex:
+          msg3 = QMessageBox()
+          msg3.setWindowTitle("Warning")
+          msg3.setText("Please Choose a correct File Path !              ")
+          msg3.setIcon(QMessageBox.Warning)
+          y=msg3.exec_()
+    
+    
+   
        
         
         
     def checking(self) :
       #download xml file
-      client = storage.Client.from_service_account_json('fotaproject40-b1ae7c61a9cd.json')
-      bucket = client.get_bucket('fotaproject_bucket')
-      blob3 = bucket.blob("Request.xml")
-      blob3.download_to_filename(self.pathRequest+"\Request.xml") 
-
-      tree = ET.parse("Request.xml")
-      root = tree.getroot()
-      indx=0
-      tags =  [elem.tag for elem in root.iter()]
-      attrs = [elem.text for elem in root.iter()]
-      self.pushButton_3.setEnabled(False)
-      #read xml parser
-      for i in tags :
-        if i == "Status" :
-          print(attrs[indx])
-          currentStatus=attrs[indx]
-          break
-        indx=indx+1
-        
-      
-        
-      #check if our action done .. break
-      self.counter=self.counter+1
-      self.t=threading.Timer(5, self.checking)        
-      self.t.start()
-      
-      if currentStatus == "Flashed" or self.counter == 12:
-        self.pushButton_3.setEnabled(True)  
-        self.t.cancel()
-        print("DONE !")
+      try:        
+        client = storage.Client.from_service_account_json(jsonFile)
+        bucket = client.get_bucket('fotaproject_bucket')
+        blob3 = bucket.blob("Request.xml")
+        blob3.download_to_filename("Request.xml") 
   
+        tree = ET.parse("Request.xml")
+        root = tree.getroot()
+        indx=0
+        tags =  [elem.tag for elem in root.iter()]
+        attrs = [elem.text for elem in root.iter()]
+        self.pushButton_3.setEnabled(False)
+        #read xml parser
+        for i in tags :
+          if i == "Status" :
+            print(attrs[indx])
+            currentStatus=attrs[indx]
+            break
+          indx=indx+1
+          
+        
+          
+        #check if our action done .. break
+        self.counter=self.counter+1
+        self.t=threading.Timer(5, self.checking)        
+        self.t.start()
+        
+        if currentStatus != "Released" or self.counter == 12:
+          self.pushButton_3.setEnabled(True)  
+          self.t.cancel()
+          print("DONE !")
+          #3ayzen nhandle popup window badal el slata de :D
+
+          
+      except Exception as ex1:
+        msg4 = QMessageBox()
+        msg4.setWindowTitle("Warning")
+        msg4.setText("Failed Connecting to server !                    ")
+        msg4.setIcon(QMessageBox.Warning)
+        y=msg4.exec_()
 
     
     def pushButton_handler3(self):
-      client = storage.Client.from_service_account_json('fotaproject40-b1ae7c61a9cd.json')
-      bucket = client.get_bucket('fotaproject_bucket')
-      blob4 = bucket.blob("Request.xml")
-      blob4.download_to_filename(self.pathRequest+"\Request.xml") 
-
-      tree = ET.parse("Request.xml")
-      root = tree.getroot()
-      indx=0
-      tags =  [elem.tag for elem in root.iter()]
-      attrs = [elem.text for elem in root.iter()]
-     
-      #read xml parser
-      for i in tags :
-        if i == "Status" :
-          print(attrs[indx])
-          currentStatus=attrs[indx]
-          break
-        indx=indx+1
+      try:
+        client = storage.Client.from_service_account_json(jsonFile)
+        bucket = client.get_bucket('fotaproject_bucket')
+        blob4 = bucket.blob("Request.xml")
+        blob4.download_to_filename("Request.xml") 
+  
+        tree = ET.parse("Request.xml")
+        root = tree.getroot()
+        indx=0
+        tags =  [elem.tag for elem in root.iter()]
+        attrs = [elem.text for elem in root.iter()]
+      
+        #read xml parser
+        for i in tags :
+          if i == "Status" :
+            print(attrs[indx])
+            currentStatus=attrs[indx]
+            break
+          indx=indx+1
+          
+          
+        msg1 = QMessageBox()
+        msg1.setWindowTitle("Status")
+        msg1.setText(""+currentStatus+"                               ")
         
-      print("The Current Status is :"+currentStatus )
-
-
-
+        if currentStatus == "Error" :
+          msg1.setIcon(QMessageBox.Warning)
+          
+          
+        else :  
+          msg1.setIcon(QMessageBox.Information)
+        y=msg1.exec_()
+      
+      except Exception as ex1:
+        msg5 = QMessageBox()
+        msg5.setWindowTitle("Warning")
+        msg5.setText("Failed Connecting to server !                    ")
+        msg5.setIcon(QMessageBox.Warning)
+        y=msg5.exec_()
+        
+    def verify_Elf_File(self):
+      file=open(self.path,"rb")
+      try:
+        elf_Handler =ELFFile(file)
+        Header=elf_Handler.header   #elf file header
+        Magic=Header.e_ident ['EI_MAG']
+        elf_Class=elf_Handler.elfclass #elf file class   
+      except Exception as ex1:
+        return False
+      if Magic[0] !=127 or  Magic[1] !=69 or  Magic[2] !=76 or  Magic[3] !=70 or  elf_Class !=32 :
+        return False
+      else: 
+        return True
+      
+      
+      
 app = QApplication(sys.argv)
 Widget = QWidget()
 Form = Ui_Form()
