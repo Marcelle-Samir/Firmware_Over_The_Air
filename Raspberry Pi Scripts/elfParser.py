@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 import sys
 import os
-#from serial import serialwin32
 import serial
-#import elftools
 from elftools.elf.elffile import ELFFile , Segment
 from elftools.elf.structs import ELFStructs
 
-#Container({'p_type': 'PT_LOAD', 'p_offset': 65536, 'p_vaddr': 134217728,
-# 'p_paddr': 134217728, 'p_filesz': 4891, 'p_memsz': 4891, 'p_flags': 7, 'p_align': 65536})
 ####################Constants ###########################################################################
 
 START_ADDRESS=0x08000000              #start address of flash (0x08000000)  
@@ -49,7 +45,7 @@ END_FLASH_SIZE         =0x04
 DUMMY_BYTE=0
 ##########################################################################################################
 port = "/dev/ttyS0"
-ser = serial.Serial(port,9600)
+ser = serial.Serial(port,115200)
 file=open(sys.argv[1],"rb")
 elf_Handler =ELFFile(file)
 Header=elf_Handler.header   #elf file header
