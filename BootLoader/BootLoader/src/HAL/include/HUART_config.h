@@ -35,16 +35,14 @@
 #define DATA_BITS			DATA_8_BITS
 
 #define BAUD_RATE_9600		9600
+#define BAUD_RATE_115200	115200
 
 #define SEND_MODE				SEND_MODE_DMA
 #define RECEIVE_MODE			RECEIVE_MODE_DMA
 #define MODE					DMA_MODE
 #define LIN_MODE                LIN_ON
 
-#define BAUD_RATE			BAUD_RATE_9600
-
-
-
+#define BAUD_RATE			BAUD_RATE_115200
 
 
 

@@ -5,14 +5,14 @@
  *      Author: Ahmed Qandeel
  */
 
-#include "../../Driver/include/DRCC.h"
-#include "../../Driver/include/DGPIO.h"
-#include "../../Driver/include/EXT_INT.h"
-#include "../../Driver/include/DMA.h"
-#include "../../Driver/include/FLITF.h"
-#include "../../Driver/include/DNVIC.h"
-#include "../../HAL/include/HUART.h"
-#include "../include/Bootloader_types.h"
+#include "DRCC.h"
+#include "DGPIO.h"
+#include "EXT_INT.h"
+#include "DMA.h"
+#include "FLITF.h"
+#include "DNVIC.h"
+#include "HUART.h"
+#include "Bootloader_types.h"
 
 #define WORD_SIZE                       4
 #define PAGE_SIZE                       0x400

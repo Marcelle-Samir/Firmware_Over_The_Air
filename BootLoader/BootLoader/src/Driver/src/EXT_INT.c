@@ -4,11 +4,11 @@
  *  Created on: May 28, 2020
  *      Author: Amr Ibrahim
  */
-#include "../include/DRCC.h"
-#include "../include/DGPIO.h"
-#include "../include/DNVIC.h"
-#include "../include/EXT_INT.h"
-#include "../include/EXT_INT_cfg.h"
+#include "DRCC.h"
+#include "DGPIO.h"
+#include "DNVIC.h"
+#include "EXT_INT.h"
+#include "EXT_INT_cfg.h"
 
 typedef struct {
 	uint_32t EXTI_IMR ;

@@ -6,8 +6,8 @@
  */
 
 
-#include "../include/DMA.h"
-#include "../include/DMA_Cfg.h"
+#include "DMA.h"
+#include "DMA_Cfg.h"
 
 
 

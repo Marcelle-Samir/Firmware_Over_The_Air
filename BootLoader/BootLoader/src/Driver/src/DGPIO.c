@@ -1,4 +1,4 @@
-#include "../include/DGPIO.h"
+#include "DGPIO.h"
 
 
 #define GPIO_CONFIG_MASK	0x000000000000000f

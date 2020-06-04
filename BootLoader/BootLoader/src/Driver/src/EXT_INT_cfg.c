@@ -5,9 +5,9 @@
  *      Author: Amr Ibrahim
  */
 
-#include "../../Driver/include/DGPIO.h"
-#include "../../Driver/include/EXT_INT.h"
-#include "../../Driver/include/EXT_INT_cfg.h"
+#include "DGPIO.h"
+#include "EXT_INT.h"
+#include "EXT_INT_cfg.h"
 
 
 EXTI_CFG_t EXTI_CFG[NUMOFEXTI] = {

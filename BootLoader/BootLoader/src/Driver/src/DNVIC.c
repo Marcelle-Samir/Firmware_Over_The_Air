@@ -5,8 +5,7 @@
  *      Author: Ahmed Qandeel
  */
 
-#include "../include/DNVIC.h"
-
+#include "DNVIC.h"
 
 #define NVIC_BASE_ADDRESS  (( NVIC_t*) 0XE000E100)
 #define SCB_AIRCR *((volatile uint_32t*) 0XE000ED0C)

@@ -4,7 +4,7 @@
  *  Created on: May 17, 2020
  *      Author: Amr Ibrahim
  */
-#include "../include/FLITF.h"
+#include "FLITF.h"
 
 typedef struct{
 	volatile uint_32t FLASH_ACR          ;
