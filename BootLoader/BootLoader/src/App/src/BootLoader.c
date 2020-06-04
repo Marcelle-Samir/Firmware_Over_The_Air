@@ -13,6 +13,8 @@
 #include "DNVIC.h"
 #include "HUART.h"
 #include "Bootloader_types.h"
+#include "Bootloader_Application.h"
+
 
 #define WORD_SIZE                       4
 #define PAGE_SIZE                       0x400
@@ -20,16 +22,19 @@
 #define CLEAR_WORD						0xFFFFFFFF
 #define APP_START_PAGE					0x08002000
 #define APP_END_PAGE					0x0800FC00
+#define BOOTLOADER_VECTOR_OFFSET		0x00000000
 
 
-static void BootLoaderExistingAppHandler    (void);
+static void Erase_Application    (void);
 static void Com_Handler               		(void);
 static void Receiving_New_App_Req 		    (void);
 static void Recieve_Data             		(void);
 static void Received_Finished   		    (void);
 static void Reset_Sys                 		(void);
+static void Clear_ROM_Marker				(void);
 
-static uint_32t * Marker = (uint_32t *) (0x08001FF8)                         ;
+static uint_32t * ROM_Marker = (uint_32t *) (0x08001FF8);
+static uint_32t * RAM_Marker = (uint_32t *) (0x20000000);
 
 
 typedef void(*EntryPoint_t)(void)               ;
@@ -38,7 +43,7 @@ EntryPoint_t * APP_EntryPoint = (EntryPoint_t *) (0x08001FFC)                ;
 
 
 static uint_8t  Buffer[FLASH_WRITE_SECTOR_SIZE] ;
-static uint_8t FlashNewAppKey                  ;
+static uint_8t FlashNewAppKey                 	;
 static uint_32t APP_Size                        ;
 static uint_32t APP_Addr                        ;
 static uint_32t COM_Handler_State               ;
@@ -48,9 +53,18 @@ static RespondFrame_t Respond                   ;
 
 void main (void)
 {
+	if ( RAM_MARKER_VALUE == *RAM_Marker )
+	{
+		*RAM_Marker=CLEAR_WORD;
+		Clear_ROM_Marker();
+		DNVIC_voidChangeVectorOffset(BOOTLOADER_VECTOR_OFFSET);
+	}
+	else{
+		/*MISRA*/
+	}
 
-	DEXTI_SetCBF(BootLoaderExistingAppHandler);
-	switch(*Marker)
+	/*DEXTI_SetCBF(BootLoaderExistingAppHandler);*/
+	switch(*ROM_Marker)
 	{
 	case APP_FOUND :
 		/*Initialize stack pointer*/
@@ -63,7 +77,7 @@ void main (void)
 		DRCC_SetPriephralStatus (GPIO_C_ENABLE,ON)  ;
 		DRCC_SetPriephralStatus (USART_1_ENABLE,ON) ;
 		DRCC_SetPriephralStatus(DMA_1_ENABLE,ON)    ;
-		HUART_Init()                               ;
+		HUART_Init()   	                            ;
 		while(1)
 		{
 			Com_Handler();
@@ -106,6 +120,7 @@ void Receiving_New_App_Req(void)
 			APP_Addr         = NewApp_ptr->Address ;
 			APP_Size         = NewApp_ptr->Size ;
 			Respond.ACK_Key  = RECEIVED_OK ;
+			Erase_Application ();
 		}
 		else
 		{
@@ -188,7 +203,7 @@ void Received_Finished         (void)
 			{
 				Respond.ACK_Key = RECEIVED_OK      ;
 				temp            = APP_FOUND        ;
-				Flash_ProgramWrite((void *)Marker,(void *)&temp,WORD_SIZE);
+				Flash_ProgramWrite((void *)ROM_Marker,(void *)&temp,WORD_SIZE);
 				temp            = Entry_Point_Addr ;
 				Flash_ProgramWrite((void *)APP_EntryPoint,(void *)&temp,WORD_SIZE);
 			}
@@ -222,12 +237,23 @@ static void Reset_Sys (void)
 	while (1);
 
 }
-static void BootLoaderExistingAppHandler    (void)
+static void Erase_Application    (void)
+{
+	uint_32t PagesIterator;
+	Flash_Unlock();
+	/*Erase Application pages*/
+	for  (PagesIterator = APP_START_PAGE ; PagesIterator <= APP_END_PAGE;PagesIterator+=PAGE_SIZE)
+	{
+		Flash_ErasePage(PagesIterator);
+	}
+}
+
+static void Clear_ROM_Marker(void)
 {
 	uint_8t ramArray [PAGE_SIZE];
 	uint_8t *MarkerPage = (uint_8t *) (MARKER_PAGE);
 	uint_16t Iterator;
-	uint_32t PagesIterator;
+
 	/*change marker value*/
 	/*Move page to RAM*/
 	for (Iterator=0;Iterator <PAGE_SIZE;Iterator ++)
@@ -242,11 +268,4 @@ static void BootLoaderExistingAppHandler    (void)
 	*(uint_32t *)&(ramArray[1020])=CLEAR_WORD;/*Entry point*/
 	/*Flash again the marker page after editing*/
 	Flash_ProgramWrite((void *)MARKER_PAGE,ramArray,PAGE_SIZE);
-	/*Erase Application pages*/
-	for  (PagesIterator = APP_START_PAGE ; PagesIterator <= APP_END_PAGE;PagesIterator+=PAGE_SIZE)
-	{
-		Flash_ErasePage(PagesIterator);
-	}
-	/*Reset System*/
-	DNVIC_voidSysReset();
 }

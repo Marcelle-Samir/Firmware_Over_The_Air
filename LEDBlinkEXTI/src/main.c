@@ -4,6 +4,8 @@
 #include "EXT_INT.h"
 #include "DSYSTICK.h"
 #include "Sched.h"
+#include "Bootloader_Application.h"
+
 void blink (void);
 void EXTI0_CBF (void);
 task_t task1 ={.periodicity=500,.Runnable = blink};
@@ -46,8 +48,7 @@ void blink (void)
 }
 void EXTI0_CBF (void)
 {
-	DNVIC_voidChangeVectorOffset(0);
-	DNVIC_EnableIRQ(EXTI0);
-	DNVIC_SetPendingIRQ(EXTI0);
-
+	uint_32t *RAM_Marker = ((uint_32t*)RAM_MARKER_ADDRESS);
+	*RAM_Marker=RAM_MARKER_VALUE;
+	DNVIC_voidSysReset();
 }
