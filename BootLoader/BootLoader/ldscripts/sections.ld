@@ -57,7 +57,7 @@ SECTIONS
      * For Cortex-M devices, the beginning of the startup code is stored in
      * the .isr_vector section, which goes to FLASH. 
      */
-    .Marker_section : ALIGN(4)
+        .Marker_section : ALIGN(4)
     {
         FILL(0xFF)
         
