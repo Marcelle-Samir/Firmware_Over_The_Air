@@ -190,49 +190,49 @@ Service accounts differ from user accounts in a few key ways:
 - How to create a service account and generate a key
 >hint: The python script won't connect to the google cloud server throught the json file if the PC time is not right 
 
--From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
+- From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
 
 
 <img src="images/step1.png" width="500">
 
--Click on CREATE SERVICE ACCOUNT
+- Click on CREATE SERVICE ACCOUNT
 
 
 <img src="images/step2.png" width="500">
 
--Add Service account name and Service account description
+- Add Service account name and Service account description
 
 
 <img src="images/step3.png" width="500">
 
--Select a role for the created Service account
+- Select a role for the created Service account
 
 
 <img src="images/step4.png" width="500">
 
--Grant specific user access to the created service account
+- Grant specific user access to the created service account
 
 
 <img src="images/step5.png" width="500">
 
--Generate an authenticated key file through creating a key and press done 
+- Generate an authenticated key file through creating a key and press done 
 
 
 <img src="images/step6.png" width="500">
 
--The generated .JSON key file can be used through VMs for accessing the cloud server that generated this service account key through different APIs, in our project we connected through this key file through Python using google.cloud provided library.
+- The generated .JSON key file can be used through VMs for accessing the cloud server that generated this service account key through different APIs, in our project we connected through this key file through Python using google.cloud provided library.
 
 
 <img src="images/step7.png" width="500">
 
 ## Serice Account Key Constaints
 
--If this .Json key file that includes all the credentials is shared through any online platform e.g: Github, Whatsapp , …etc. Google’s support immediately notifies the owner through the registered email address and it can be followed by a suspension to the whole project but it can be reopened be requesting an appeal.
+- If this .Json key file that includes all the credentials is shared through any online platform e.g: Github, Whatsapp , …etc. Google’s support immediately notifies the owner through the registered email address and it can be followed by a suspension to the whole project but it can be reopened be requesting an appeal.
 
 
 <img src="images/step8.png" width="500">
 
--If you detected any violations from any generated service key account it can be disabled immediately by the owner.
+- If you detected any violations from any generated service key account it can be disabled immediately by the owner.
 
 
 <img src="images/step9.png" width="500">
