@@ -160,7 +160,7 @@ and then create a new bucket inside this project.
 
 >gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
-# PC GUI Application
+## PC GUI Application
 
 - install python 3.8.1:
 https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
@@ -175,11 +175,70 @@ https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
 >pip install google-cloud-datastore\
 >pip install google-cloud-storage
 
-- Creating Service key account for generating .json file (From cloud.google guides)
+## Creating Service key account for generating .json file (From cloud.google guides)
+What are service accounts?
+A service account is a special kind of account used by an application or a virtual machine (VM) instance, not a person. Applications use service accounts to make authorized API calls.
+For example, a Compute Engine VM may run as a service account, and that account can be given permissions to access the resources it needs. This way the service account is the identity of the service, and the service account's permissions control which resources the service can access.
+
+Differences between a service account and a user account
+Service accounts differ from user accounts in a few key ways:
+•	Service accounts do not have passwords, and cannot log in via browsers or cookies.
+•	Service accounts are associated with private/public RSA key-pairs that are used for authentication to Google.
+•	Cloud IAM permissions can be granted to allow other users (or other service accounts) to impersonate a service account.
+
+
+- How to create a service account and generate a key
 >hint: The python script won't connect to the google cloud server throught the json file if the PC time is not right 
 
-<img src="images/Json.png" width="500">
+-From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
 
+
+<img src="images/step1.png" width="500">
+
+-Click on CREATE SERVICE ACCOUNT
+
+
+<img src="images/step2.png" width="500">
+
+-Add Service account name and Service account description
+
+
+<img src="images/step3.png" width="500">
+
+-Select a role for the created Service account
+
+
+<img src="images/step4.png" width="500">
+
+-Grant specific user access to the created service account
+
+
+<img src="images/step5.png" width="500">
+
+-Generate an authenticated key file through creating a key and press done 
+
+
+<img src="images/step6.png" width="500">
+
+-The generated .JSON key file can be used through VMs for accessing the cloud server that generated this service account key through different APIs, in our project we connected through this key file through Python using google.cloud provided library.
+
+
+<img src="images/step7.png" width="500">
+
+## Serice Account Key Constaints
+
+-If this .Json key file that includes all the credentials is shared through any online platform e.g: Github, Whatsapp , …etc. Google’s support immediately notifies the owner through the registered email address and it can be followed by a suspension to the whole project but it can be reopened be requesting an appeal.
+
+
+<img src="images/step8.png" width="500">
+
+-If you detected any violations from any generated service key account it can be disabled immediately by the owner.
+
+
+<img src="images/step9.png" width="500">
+
+## GUI
+ 
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
 <img src="images/GUI.PNG" width="500">
