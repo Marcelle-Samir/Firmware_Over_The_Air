@@ -175,7 +175,7 @@ https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
 >pip install google-cloud-datastore\
 >pip install google-cloud-storage
 
-## Creating Service key account for generating .json file (From cloud.google guides)
+## What is the service accounts and keys in google clouds 
 What are service accounts?
 A service account is a special kind of account used by an application or a virtual machine (VM) instance, not a person. Applications use service accounts to make authorized API calls.
 For example, a Compute Engine VM may run as a service account, and that account can be given permissions to access the resources it needs. This way the service account is the identity of the service, and the service account's permissions control which resources the service can access.
@@ -187,7 +187,7 @@ Service accounts differ from user accounts in a few key ways:
 •	Cloud IAM permissions can be granted to allow other users (or other service accounts) to impersonate a service account.
 
 
-- How to create a service account and generate a key
+## Creating Service key account for generating .json file (From cloud.google guides)
 >hint: The python script won't connect to the google cloud server throught the json file if the PC time is not right 
 
 - From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
