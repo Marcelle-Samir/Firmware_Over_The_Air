@@ -255,7 +255,7 @@ you can try this GUI by
 
 - after the flashing of the new firmware is done, we also notify the car on the screen
 
-<img src="images/flashing_done.png" width="500">
+<img src="images/flash_done.png" width="500">
 
 you can also try this by:
 >yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
