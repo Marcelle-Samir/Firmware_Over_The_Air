@@ -274,5 +274,13 @@ Service accounts differ from user accounts in a few key ways:
 - https://riptutorial.com/google-cloud-storage/example/28256/upload-files-using-python
 - https://pypi.org/project/google-cloud-storage/
 
+**Raspberry Pi GUI**
+- https://bigl.es/tooling-tuesday-auto-start-a-gui-application-in-raspbian/
+- http://smokey01.com/yad/
+ 
+**Raspberry Pi touch screen**
+- https://trickiknow.com/raspberry-pi-3-complete-tutorial-2018-lets-get-started/
+- https://circuitdigest.com/microcontroller-projects/interfacing-3.5-inch-touchscreen-tft-lcd-with-raspberry-pi
+
 **others**
 - https://www.raspberrypi.org/documentation/linux/usage/rc-local.md
