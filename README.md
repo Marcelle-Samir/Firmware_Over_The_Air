@@ -237,13 +237,28 @@ Service accounts differ from user accounts in a few key ways:
 
 <img src="images/step9.png" width="500">
 
-## GUI
+## PC GUI
  
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
 <img src="images/GUI.PNG" width="500">
 
+## Raspberry Pi GUI
+we're using bash script to generete this GUI by using YAD
 
+- a touch screen is connected to the raspberry Pi as a simulation for Car's dashboard, and we send a notification message to the car on the screen once a new firmware is available and already downloaded to the raspberry Pi
+
+<img src="images/new_firmware.png" width="500">
+
+you can try this GUI by 
+>yad --title="3faret El Embedded FOTA project" --list --width=500 --height=200 --column "New Firmware for $controller_name is available. select action" 'Flash now' 'Snooze 5 min' --no-buttons --timeout=60using 
+
+- after the flashing of the new firmware is done, we also notify the car on the screen
+
+<img src="images/flashing_done.png" width="500">
+
+you can also try this by:
+>yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
 
 ## References
 
