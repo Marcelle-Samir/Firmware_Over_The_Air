@@ -4,7 +4,7 @@
  *  Created on: May 21, 2020
  *      Author: Ahmed Qandeel
  */
-
+#include "STD_TYPES.h"
 #include "DRCC.h"
 #include "DGPIO.h"
 #include "EXT_INT.h"

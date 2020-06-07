@@ -8,14 +8,6 @@
 #ifndef BOOTLOADER_TYPES_H_
 #define BOOTLOADER_TYPES_H_
 
-typedef unsigned char uint_8t;
-typedef unsigned short int uint_16t;
-typedef unsigned long int uint_32t;
-typedef unsigned long long uint_64t;
-typedef signed char int_8t;
-typedef signed short int int_16t;
-typedef signed short int int_32t;
-
 #define MAX_DATA_SIZE                 1024
 
 #define RECEIVED_OK                   1

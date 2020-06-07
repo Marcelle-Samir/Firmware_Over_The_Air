@@ -1,21 +1,67 @@
-/*
- * HUART.c
- *
- *  Created on: Mar 28, 2020
- *      Author: Mohanad
+/**
+ * @file	HUART.c
+ * @author 	Mohanad (mohanad_sallam@hotmail.com)
+ * @brief 	This file is the Implementation for UART Handler for UART Driver in STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * @copyright Copyright (c) 2020
+ */
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile DRCC.h
  */
 #include "DRCC.h"
+/**
+ * @headerfile DGPIO.h
+ */
 #include "DGPIO.h"
+/**
+ * @headerfile DMA.h
+ */
 #include "DMA.h"
+/**
+ * @headerfile UART.h
+ */
 #include "UART.h"
+/**
+ * @headerfile UART_Private.h
+ */
 #include "UART_Private.h"
+/**
+ * @headerfile HUART.h
+ */
 #include "HUART.h"
+/**
+ * @headerfile HUART_config.h
+ */
 #include "HUART_config.h"
-
+/**
+ * @def 	UART_DMA_TX_ENABLE
+ * @brief 	Enable Uart Transmit With DMA Mode 
+ */
 #define UART_DMA_TX_ENABLE		0x00000080
+/**
+ * @def 	UART_DMA_RX_ENABLE
+ * @brief 	Enable Uart Recieve with DMA Mode 
+ */
 #define UART_DMA_RX_ENABLE		0x00000040
+/**
+ * @def 	LIN_ENABLE
+ * @brief 	Enable LIN 
+ */
 #define LIN_ENABLE    	      	0x00004000
+/**
+ * @def 	LIN_BREAK_SIZE
+ * @brief 	Size of LIN Break Frame  
+ */
 #define LIN_BREAK_SIZE  	    0x00000020
+/**
+ * @def 	LIN_INTERRUPT_ENABLE
+ * @brief 	Enable Interrupt for LIN  
+ */
 #define LIN_INTERRUPT_ENABLE	0x00000040
 Notify_t Notification_Send,Notification_Receive;
 uint_8t UART_mode = INTERRUPT_MODE;
@@ -103,7 +149,7 @@ uint_8t HUART_Config(uint_32t BaudRate,uint_32t ParityBits,uint_32t DataSize,uin
 	}
 	else
 	{
-		Local_Error=NOT_OK;
+		Local_Error=NOK;
 	}
 	return Local_Error;
 }
@@ -116,7 +162,7 @@ uint_8t HUART_SetTxCbf(TxCbf_t TxCbf)
 	}
 	else
 	{
-		LocalError=NOT_OK;
+		LocalError=NOK;
 	}
 	return LocalError;
 
@@ -132,7 +178,7 @@ uint_8t HUART_SetRxCbf(RxCbf_t RxCbf)
 	}
 	else
 	{
-		LocalError=NOT_OK;
+		LocalError=NOK;
 	}
 	return LocalError;
 }
@@ -146,7 +192,7 @@ uint_8t HUART_SetLBDCbf(LBDCbf_t LBDCbf)
 	}
 	else
 	{
-		LocalError=NOT_OK;
+		LocalError=NOK;
 	}
 	return LocalError;
 }

@@ -1,46 +1,29 @@
-/*
- * DMA.h
- *
- *  Created on: Apr 15, 2020
- *      Author: MOSTAFA
+
+/**
+ * @file	DMA.h
+ * @author 	Marcelle (marcelle.samir.s@gmail.com)
+ * @brief 	This file is a user interface for DMA Driver for STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * @copyright Copyright (c) 2020
+ * 
  */
 
 #ifndef DMA_H_
 #define DMA_H_
 
-
-typedef unsigned char uint_8t;
-typedef unsigned short int uint_16t;
-typedef unsigned long int uint_32t;
-typedef unsigned long long uint_64t;
-typedef signed char int_8t;
-typedef signed short int int_16t;
-typedef signed short int int_32t;
-
-#define OK	0
-#define NOK	1
-
-
-
-/************************************************************************
- * Function name: D_DMA_Init
- *
- * parameters:  Input:  NA
- *
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to initialize DMA
- ***************************************************************************/
-
+/**
+ * @brief	Function to initialize DMA
+ * @param	NA
+ * @return 	uint_8t : OK | NOK
+ */
 uint_8t D_DMA_Init(void);
 
-/********************************************************************************************************************/
-
-/*************************************
- *********DMA_CHANNEL_NUMBER**********
- *************************************/
+/**
+ * @def  	CHANNEL_NUMBER 
+ * @brief 	Channel of DMA 
+ * 			Number : ONE up to SEVEN  
+ */
 #define CHANNEL_ONE		0
 #define CHANNEL_TWO		1
 #define CHANNEL_THREE	2
@@ -49,55 +32,37 @@ uint_8t D_DMA_Init(void);
 #define CHANNEL_SIX		5
 #define CHANNEL_SEVEN	6
 
-/************************************************************************
- * Function name: DRCC_SetBusPrescale
- *
- * parameters:  Input:
- *                 MemoryAddress
- *                     type: uint_32t
- *                     Description: Takes Memory Address
- *                 PeripheralAddress
- *                     type: uint_32t
- *                     Description: Takes Peripheral Address
- *                 Counter
- *                     type: uint_8t
- *                     Description: Takes Counter of Data Transmission
- *                 ChannelNumber
- *                     type: uint_8t
- *                     Description: DMA Channel Number ( CHANNEL_ONE   , CHANNEL_TWO
- *                                                       CHANNEL_THREE , CHANNEL_FOUR
- *                                                       CHANNEL_FIVE  , CHANNEL_SIX
- *                                                       CHANNEL_SEVEN             )
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to Make DMA Start Transfering Data according to it's Parameters
- ***************************************************************************/
-
+/**
+ * @brief	Function to Make DMA Start Transfering Data according to it's Parameters
+ * @param	MemoryAddress		Variable of uint_32t , Takes Memory Address 
+ * @param 	PeripheralAddress	Variable of uint_32t , Takes Peripheral Address
+ * @param 	Counter				Variable of uint_8t  , Takes Counter of Data Transmission 
+ * @param 	ChannelNumber 		Variable of uint_8t  , DMA Channel Number ( CHANNEL_ONE   , CHANNEL_SEVEN)
+ * @return 	uint_8t : OK | NOK
+ */
 uint_8t D_DMA_Start(uint_32t MemoryAddress,uint_32t PeripheralAddress,uint_32t Counter,uint_8t ChannelNumber);
 
-/********************************************************************************************************************/
-
-/*************************************
- *********DMA_CHANNEL_NUMBER**********
- *************************************/
-#define CHANNEL_ONE		0
-#define CHANNEL_TWO		1
-#define CHANNEL_THREE	2
-#define CHANNEL_FOUR	3
-#define CHANNEL_FIVE	4
-#define CHANNEL_SIX		5
-#define CHANNEL_SEVEN	6
-
-/*************************************
- *********DMA_POINTER_TO_FUNCTION*****
- *************************************/
+/**
+ * @typedef 	TC_Notification
+ * @brief 		Pointer to Function 	
+ */ 
 typedef void (*TC_Notification)(void);
+/**
+ * @typedef 	HTC_Notification
+ * @brief 		Pointer to Function 	
+ */ 
 typedef void (*HTC_Notification)(void);
+/**
+ * @typedef 	TE_Notification
+ * @brief 		Pointer to Function 	
+ */ 
 typedef void (*TE_Notification)(void);
 
-/***************FLAGS_OF_DMA***********************/
+/**
+ * @typedef 	Notify_t
+ * @brief		Struct of pointers to function 
+ *   
+ */ 
 typedef struct
 {
 	TC_Notification		TC;
@@ -105,27 +70,15 @@ typedef struct
 	TE_Notification		TE;
 }Notify_t;
 
-/************************************************************************
- * Function name: DRCC_SetBusPrescale
- *
- * parameters:  Input:
- *                 MemoryAddress
- *                     type       : Notify_t ( Pointer To function )
- *                     Description: Takes Function to Execute
- *                 ChannelNumber
- *                     type: uint_8t
- *                     Description: DMA Channel Number ( CHANNEL_ONE   , CHANNEL_TWO
- *                                                       CHANNEL_THREE , CHANNEL_FOUR
- *                                                       CHANNEL_FIVE  , CHANNEL_SIX
- *                                                       CHANNEL_SEVEN             )
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to Set DMA Call Back Function
- ***************************************************************************/
-
+/**
+ * @brief	Function to Set DMA Call Back Function
+ * @param	Notification		Pointer to struct  , Takes Function to Execute 
+ * @param 	ChannelNumber 		Variable of uint_8t  , DMA Channel Number ( CHANNEL_ONE   , CHANNEL_SEVEN)
+ * @return 	uint_8t : OK | NOK
+ */
 uint_8t D_DMA_SetNotifyCbf(Notify_t *Notification, uint_8t Channel_Number);
+
+
 
 
 

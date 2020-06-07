@@ -1,7 +1,34 @@
+/**
+ * @file DRCC.c
+ * @author Mostafa (mnader96@gmail.com)
+ * @brief This file is the Implementation for RCC Driver for STM32F103 
+ * @version 0.1
+ * @date 2020-06-05
+ *
+ * @copyright Copyright (c) 2020
+ * 
+ */
+ 
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+
+/**
+ * @headerfile DRCC.h
+ */
 #include "DRCC.h"
 
+/**
+ * @def  	DRCC_BASE_ADDRESS  
+ * @brief	Base Address of RCC Peripheral					
+ */
 #define DRCC_BASE_ADDRESS 0X40021000
-
+/**
+ * @def  	RCC_Register 
+ * @brief	Base Address of RCC Registers	
+ * 			Register : CR | CFGR | CIR | APB2RSTR | RCC_APB1RSTR | RCC_AHBENR | RCC_APB2ENR | RCC_APB1ENR |	RCC_BDCR |	RCC_CSR 
+ */
 #define RCC_CR          *((uint_32t *)(DRCC_BASE_ADDRESS + 0X00))
 #define RCC_CFGR        *((uint_32t *)(DRCC_BASE_ADDRESS + 0X04))
 #define RCC_CIR         *((uint_32t *)(DRCC_BASE_ADDRESS + 0X08))
@@ -13,18 +40,60 @@
 #define RCC_BDCR        *((uint_32t *)(DRCC_BASE_ADDRESS + 0X20))
 #define RCC_CSR         *((uint_32t *)(DRCC_BASE_ADDRESS + 0X24))
 
+
+/**
+ * @def  	PLLRDY_MASK  
+ * @brief	PLL Ready Mask 		
+ */
 #define PLLRDY_MASK 	0x02000000
+/**
+ * @def  	HSERDY_MASK  
+ * @brief	HSE Ready Mask 		
+ */
 #define HSERDY_MASK 	0x00020000
+/**
+ * @def  	HSIRDY_MASK  
+ * @brief	HSI Ready Mask 		
+ */
 #define HSIRDY_MASK 	0x00000002
-
+/**
+ * @def  	HSI_SRC_MASK  
+ * @brief	HSI Source Mask  		
+ */
 #define HSI_SRC_MASK 	0x00000000
+/**
+ * @def  	HSE_SRC_MASK  
+ * @brief	HSE Source Mask  		
+ */
 #define HSE_SRC_MASK 	0x00000004
+/**
+ * @def  	PLL_SRC_MASK  
+ * @brief	HSE_PLLSRC_MASK Mask  		
+ */
 #define PLL_SRC_MASK 	0x00000008
-
+/**
+ * @def  	HSE_PLLSRC_MASK  
+ * @brief	HSE_PLL Source Mask 		
+ */
 #define HSE_PLLSRC_MASK				0x00010000
+/**
+ * @def  	HSE_PLLSRC_DIV_TWO_MASK  
+ * @brief	HSE_PLL Source Mask divided by Two		
+ */
 #define HSE_PLLSRC_DIV_TWO_MASK		0x00030000
+
+/**
+ * @def  	HSI_PLLSRC_DIV_TWO_MASK  
+ * @brief	HSI_PLL Source Mask divided by Two		
+ */
 #define HSI_PLLSRC_DIV_TWO_MASK		0x00000000
 
+/**
+ * @def  	PLLMULL_NUM  
+ * @brief	Prescaler of PLL 
+ *          NUM Range: 2 up to 16 
+ * 					
+ */
 #define PLLMUL_2  0x00000000
 #define PLLMUL_3  0x00040000
 #define PLLMUL_4  0x00080000
@@ -40,33 +109,85 @@
 #define PLLMUL_14 0x00300000
 #define PLLMUL_15 0x00340000
 #define PLLMUL_16 0x00380000
-
+/**
+ * @def  	AHB_PRESCALE_CLR  
+ * @brief	AHB Prescale Clear Mask 		
+ */
 #define AHB_PRESCALE_CLR  0xFFFFFF0F
+/**
+ * @def  	APB1_PRESCALE_CLR  
+ * @brief	APB1 Prescale Clear Mask 		
+ */
 #define APB1_PRESCALE_CLR 0xFFFFF8FF
+/**
+ * @def  	APB2_PRESCALE_CLR  
+ * @brief	APB2 Prescale Clear Mask 		
+ */
 #define APB2_PRESCALE_CLR 0xFFFFC7FF
 
+/**
+ * @def  	PLL_CONFIG_CLR  
+ * @brief	PLL Clear Mask  		
+ */
 #define PLL_CONFIG_CLR 0xFFC0FFFF
+/**
+ * @def  	SYS_CLK_CLR  
+ * @brief	System Clock Clear Mask  		
+ */
 #define SYS_CLK_CLR 0xfffffffc
-
+/**
+ * @def      SW_MASK
+ * @brief    System Clock Switch Mask
+ */
 #define SW_MASK				0x0000000C
+/**
+ * @def      PLL_SOURCE_MASK	
+ * @brief    PLL Clock Source Switch Mask
+ */
 #define PLL_SOURCE_MASK		0x00030000
+/**
+ * @def      PLL_MUL_MASK	
+ * @brief    PLL Multiplayer Mask 
+ */
 #define PLL_MUL_MASK		(uint_32t)0x003C0000
+/**
+ * @def      APB2_MASK	
+ */
 #define APB2_MASK			0x00003800
+/**
+ * @def      APB1_MASK	
+ */
 #define APB1_MASK			0x00000700
+/**
+ * @def      AHB_MASK	
+ */
 #define AHB_MASK			0x000000F0
-
+/**
+ * @def      APB2_PRESCALER_x_MASK
+ * @brief    APB2 Prescaler MASK
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16 
+ */
 #define APB2_PRESCALER_NOT_DIVIDED_MASK     0x00000000
 #define APB2_PRESCALER_DIV_2_MASK           0x00002000
 #define APB2_PRESCALER_DIV_4_MASK           0x00002800
 #define APB2_PRESCALER_DIV_8_MASK           0x00003000
 #define APB2_PRESCALER_DIV_16_MASK          0x00003800
 
+/**
+ * @def      APB1_PRESCALER_x_MASK
+ * @brief    APB1 Prescaler MASK
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16 
+ */
 #define APB1_PRESCALER_NOT_DIVIDED_MASK     0x00000000
 #define APB1_PRESCALER_DIV_2_MASK           0x00000400
 #define APB1_PRESCALER_DIV_4_MASK           0x00000500
 #define APB1_PRESCALER_DIV_8_MASK           0x00000600
 #define APB1_PRESCALER_DIV_16_MASK          0x00000700
-
+/**
+ * @def      AHB_PRESCALER_x_MASK
+ * @brief    AHB Prescaler MASK
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16 or 64 or 128 or 256 or 512  
+ */
 #define AHB_PRESCALER_NOT_DIVIDED_MASK     0x00000000
 #define AHB_PRESCALER_DIV_2_MASK           0x00000080
 #define AHB_PRESCALER_DIV_4_MASK           0x00000090
@@ -95,7 +216,7 @@ uint_8t DRCC_SetClkStatus (uint_32t clk,uint_8t status)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 }
 
@@ -108,14 +229,14 @@ uint_8t DRCC_SetSystemClk (uint_32t clk)
 		{
 			if (!(RCC_CR&HSIRDY_MASK))
 			{
-				return NOT_OK;
+				return NOK;
 			}
 		}
 		else if (clk==HSE_SYS)
 		{
 			if (!(RCC_CR&HSERDY_MASK))
 			{
-				return NOT_OK;
+				return NOK;
 			}
 
 		}
@@ -123,13 +244,13 @@ uint_8t DRCC_SetSystemClk (uint_32t clk)
 		{
 			if (!(RCC_CR&PLLRDY_MASK))
 			{
-				return NOT_OK;
+				return NOK;
 			}
 
 		}
 		else
 		{
-			return NOT_OK;
+			return NOK;
 		}
 		local_temp&= SYS_CLK_CLR;
 		local_temp|=clk;
@@ -139,7 +260,7 @@ uint_8t DRCC_SetSystemClk (uint_32t clk)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 }
 
@@ -156,7 +277,7 @@ uint_8t DRCC_SetPLLConfig (uint_32t src, uint_8t MULL)
 		return OK;
 	}
 	else
-		return NOT_OK;
+		return NOK;
 }
 
 uint_8t DRCC_SetPriephralStatus (uint_32t priephral,uint_8t Status)
@@ -202,7 +323,7 @@ uint_8t DRCC_SetPriephralStatus (uint_32t priephral,uint_8t Status)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 
 }
@@ -233,7 +354,7 @@ uint_8t DRCC_SetBusPrescale (uint_32t Bus,uint_8t Prescale)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 }
 
@@ -259,7 +380,7 @@ static uint_8t DRCC_GetSystemClk (uint_32t *CLK)
 		else if((RCC_CFGR&PLL_SOURCE_MASK)==HSE_PLLSRC_MASK)
 			*CLK=HSE_FREQ;
 		else
-			return NOT_OK;
+			return NOK;
 
 
 		*CLK*=(((RCC_CFGR&PLL_MUL_MASK)>>18)+2);
@@ -268,7 +389,7 @@ static uint_8t DRCC_GetSystemClk (uint_32t *CLK)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 
 	return OK;
@@ -324,7 +445,7 @@ uint_8t DRCC_GetBusClock (uint_32t Bus,uint_32t *CLK)
 		}
 		else
 		{
-			return NOT_OK;
+			return NOK;
 		}
 		if(Bus==AHB_BUS)
 		{
@@ -354,7 +475,7 @@ uint_8t DRCC_GetBusClock (uint_32t Bus,uint_32t *CLK)
 			}
 			else
 			{
-				return NOT_OK;
+				return NOK;
 			}
 		}
 		else if(Bus==APB2_BUS)
@@ -381,17 +502,17 @@ uint_8t DRCC_GetBusClock (uint_32t Bus,uint_32t *CLK)
 			}
 			else
 			{
-				return NOT_OK;
+				return NOK;
 			}
 		}
 		else
 		{
-			return NOT_OK;
+			return NOK;
 		}
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }

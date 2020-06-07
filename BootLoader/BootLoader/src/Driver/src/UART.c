@@ -1,27 +1,84 @@
+/**
+ * @file 	UART.c
+ * @author 	Mostafa Nader (mnader96@gmail.com)
+ * @brief 	This file is the Implementation for  UART Driver in STM32F103
+ * @version 0.1
+ * @date 	2020-06-07
+ * @copyright Copyright (c) 2020
+ */
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile NVIC.h
+ */
 #include "DNVIC.h"
+/**
+ * @headerfile UART.h
+ */
 #include "UART.h"
+/**
+ * @headerfile UART_Private.h
+ */
 #include "UART_Private.h"
-
+/**
+ *	@def 	STATE_IDLE
+ *  @brief 	Idle State
+ */
 #define STATE_IDLE	0
+/**
+ *	@def 	STATE_BUSY
+ *  @brief 	Busy State
+ */
 #define STATE_BUSY	1
-
+/**
+ *	@def 	USART_DEFAULT_CONFIG_MASK
+ *  @brief 	Default Configuration Mask For Usart 
+ */
 #define USART_DEFAULT_CONFIG_MASK		0x0000200C
 
-
-
-
+/**
+ * @def		USART_TXE_FLAG
+ * @brief 	Flag used in Transmit 
+ */
 #define USART_TXE_FLAG					0x00000080
+/**
+ * @def		USART_RXNE_FLAG
+ * @brief 	Flag used in Receive 
+ */
 #define USART_RXNE_FLAG					0x00000020
+/**
+ * @def		USART_LBD_FLAG
+ * @brief 	Flag used in LIN Break 
+ */
 #define USART_LBD_FLAG					0x00000100
 
-#define NULL 							(void*)0
-
+/**
+ * @def 	DATA_SIZE_CLEAR_MASK
+ * @brief 	Clear Mask For Data Bits 
+ */
 #define DATA_SIZE_CLEAR_MASK			0xFFFFEFFF
+/**
+ * @def 	PARITY_BIT_CLEAR_MASK
+ * @brief 	Clear Mask For Parity Bit 
+ */
 #define PARITY_BIT_CLEAR_MASK			0xFFFF3FFF
+/**
+ * @def 	STOP_BITS_CLEAR_MASK
+ * @brief 	Clear Mask For Parity Bit 
+ */
 #define STOP_BITS_CLEAR_MASK			0xFFFFCFFF
+/**
+ * @def 	BREAK_ENABLE
+ * @brief 	Enable Break
+ */
 #define BREAK_ENABLE                    0x00000001UL
 
-
+/**
+ * @typedef 	DataBuffer_t
+ * @brief 		Struct of Data Flow  
+ */
 typedef struct
 {
 	uint_8t *Data;
@@ -70,7 +127,7 @@ uint_8t UART_Send(uint_8t *Buffer, uint_16t Length)
 	}
 	else
 	{
-		Local_Error=NOT_OK;
+		Local_Error=NOK;
 	}
 	return Local_Error;
 }
@@ -95,7 +152,7 @@ uint_8t UART_Receive(uint_8t *Buffer, uint_16t Length)
 	}
 	else
 	{
-		Local_Error= NOT_OK;
+		Local_Error= NOK;
 	}
 	return Local_Error;
 }

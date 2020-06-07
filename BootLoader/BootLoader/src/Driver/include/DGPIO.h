@@ -1,19 +1,21 @@
-
+/**
+ * @file	DGPIO.h
+ * @author 	Mohanad (mohanad_sallam@hotmail.com)
+ * @brief 	This file is a user interface for GPIO Driver for STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #ifndef DGPIO_H_
 #define DGPIO_H_
-
-
-typedef unsigned char uint_8t;
-typedef unsigned short int uint_16t;
-typedef unsigned long int uint_32t;
-typedef unsigned long long uint_64t;
-typedef signed char int_8t;
-typedef signed short int int_16t;
-typedef signed short int int_32t;
-
-#define OK       0
-#define NOT_OK   1
-
+/**
+ * @def  	PIN_NUMBER  
+ * @brief	Pins Number : 
+ * 					PIN_NUMBER Ex : PIN_6 
+ * 					Number Range : 0 - 15
+ */
 #define PIN_0	0x0001
 #define PIN_1   0x0002
 #define PIN_2	0x0004
@@ -32,7 +34,25 @@ typedef signed short int int_32t;
 #define PIN_15	0x8000
 #define PIN_ALL 0xFFFF
 
-
+/**
+ * @def  	PIN_MODE 
+ * @brief	Pins MODE : MODE_PINNUMBER Ex : MODE_PIN9_IP_ANALOG 
+ * 					Number Range : 0 - 15
+ * 					OP  : Output
+ * 					OP_MODE:
+ * 						PP  : Push Pull 
+ * 						OD  : Open Drain 
+ * 					AF  : Alternative Function
+ * 					AF_MODE:
+ * 						PP  : Push Pull 
+ * 						OD  : Open Drain 
+ * 					IP  : Input
+ * 					IP_MODE :
+ * 						PUR : Pull Up
+ * 						PDR : Pull Down
+ * 						FLOATING
+ * 						ANALOG
+ */
 #define MODE_PIN0_OP_PP				0X0000000000000000
 #define MODE_PIN0_OP_OD				0X0000000000000004
 #define MODE_PIN0_AF_PP				0X0000000000000008
@@ -176,7 +196,14 @@ typedef signed short int int_32t;
 #define MODE_PIN15_IP_FLOATING	    0X4000000000000000
 #define MODE_PIN15_IP_PDR		    0X8000000000000000
 #define MODE_PIN15_IP_PUR			0XC000000000000000
-/*************************************************************************************************************/
+
+/**
+ * @def  	PIN_SPEED  
+ * @brief	Pins MODE : 
+ * 					MODE_PINNUMBER Ex : MODE_PIN9_IP_ANALOG 
+ * 					Number Range : 0 - 15
+ * 					Speed Rnage :	2MHZ - 10MHZ - 50MHZ - INPUT	
+ */
 #define SPEED_PIN0_10MHZ			0X0000000000000001
 #define SPEED_PIN0_2MHZ				0X0000000000000002
 #define SPEED_PIN0_50MHZ			0X0000000000000003
@@ -257,6 +284,10 @@ typedef signed short int int_32t;
 #define SPEED_PIN15_50MHZ			0X3000000000000000
 #define SPEED_PIN15_INPUT			0X0000000000000000
 
+/**
+ * @def 	PORT_BASE_ADDRESS 
+ * @brief 	Base Address of ALL Ports 
+ */
 #define PORTA_BASE_ADDRESS  0X40010800
 #define PORTB_BASE_ADDRESS  0X40010C00
 #define PORTC_BASE_ADDRESS  0X40011000
@@ -264,8 +295,11 @@ typedef signed short int int_32t;
 #define PORTE_BASE_ADDRESS  0X40011800
 #define PORTF_BASE_ADDRESS  0X40011C00
 #define PORTG_BASE_ADDRESS  0X40012000
-
-
+/**
+ * @def		PORT_NAME 
+ * @brief 	Casting Base Address of Each Port as Pointer to struct Port_t 
+ * 
+ */
 #define PORT_A  ((Port_t*)(PORTA_BASE_ADDRESS))
 #define PORT_B  ((Port_t*)(PORTB_BASE_ADDRESS))
 #define PORT_C  ((Port_t*)(PORTC_BASE_ADDRESS))
@@ -274,6 +308,17 @@ typedef signed short int int_32t;
 #define PORT_F  ((Port_t*)(PORTF_BASE_ADDRESS))
 #define PORT_G  ((Port_t*)(PORTG_BASE_ADDRESS))
 
+/**
+ * @typedef		Port_t  
+ * @brief		Struct of All Registers in Any Port
+ *				Registers :
+ *				 		CR   -> configuration register    
+ * 						DR	 -> input data register        
+ * 						ODR  -> output data register       
+ *						BSRR -> bit set/reset register     
+ * 						BRR  -> bit reset register         
+ * 						LCKR -> configuration lock register
+ */
 typedef struct
 {
 	uint_64t CR ;
@@ -285,7 +330,30 @@ typedef struct
 
 }Port_t;
 
-
+/**
+ * @typedef		GPIO_t 
+ * @brief		Struct of All Pin/s Configuration
+ * 				Mode -> MODE_PINx_OP_PP		                     
+ *						MODE_PINx_OP_OD		                    
+ *         				MODE_PINx_AF_PP		                     
+ *					  	MODE_PINx_AF_OD		                     
+ *						MODE_PINx_IP_ANALOG	                     
+ *						MODE_PINx_IP_FLOATING                    
+ *						MODE_PINx_IP_PDR		                 
+ *						MODE_PINx_IP_PUR		                 
+ *                                                   
+ * 				Speed-> SPEED_PINx_10MHZ                         
+ *          			SPEED_PINx_2MHZ                          
+ *          			SPEED_PINx_50MHZ                         
+ *          			SPEED_PINx_INPUT                                                                            
+ * 				Port -> PORT_A                                   
+ *          		    PORT_B                                   
+ *          			PORT_C                                   
+ *          			PORT_D                                   
+ *          			PORT_E                                   
+ *          			PORT_F                                   
+ *          			PORT_G                                   
+ */
 typedef struct 
 {
 	uint_16t Pin ;
@@ -294,20 +362,45 @@ typedef struct
 	Port_t* Port;
 
 }GPIO_t ;
-
+/**
+ * @def SET  
+ * @brief  Defined by 1  
+ */
 #define SET    1
+/**
+ * @def CLEAR
+ * @brief  Defined by 0  
+ */
 #define CLEAR  0
 
-
-
-
-
-
+/**
+ * @brief 	Function configure GPIO Pins 
+ * @param	Pins  Pointer to Struct GPIO_t  	
+ * @return	uint_8t : OK | NOK
+ */
 uint_8t GPIO_Config(GPIO_t * Pins ) ;
-
+/**
+ * @brief 	Function write GPIO pins state( SET OR CLEAR )
+ * @param	Port  Pointer to Struct Port_t to configure Port Name
+ * @param 	Pins  Variable of uint_16t to configure Pin Number   
+ * @param   State variable of uint_8t to write the State of Pin	
+ * @return	uint_8t : OK | NOK 
+ */
 uint_8t GPIO_Writee(Port_t *Port, uint_16t Pins , uint_8t State) ;
-
+/**
+ * @brief 	Function read State of a GPIO Pins of Specific Port
+ * @param	Port  Pointer to Struct Port_t to configure Port Name
+ * @param 	Value Pointer to uint_16t to have States of Pins of the Port 
+ * @return	uint_8t : OK | NOK
+ */
 uint_8t GPIO_ReadPort(Port_t *Port,uint_16t * Value) ;
+/**
+ * @brief 	Function write GPIO pins state( SET OR CLEAR )
+ * @param	Port  Pointer to Struct Port_t to configure Port Name
+ * @param 	Pin  Variable of uint_16t to configure Pin Number   
+ * @param   Value Pointer to uint_8t to have State of Pin the Port	
+ * @return	uint_8t : OK | NOK
+ */
 uint_8t GPIO_ReadPin(Port_t *Port,uint_16t Pin,uint_8t * Value) ;
 
 #endif

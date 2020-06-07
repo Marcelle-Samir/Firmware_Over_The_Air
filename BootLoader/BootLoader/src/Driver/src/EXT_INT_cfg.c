@@ -1,12 +1,26 @@
-/*
- * EXT_INT_cfg.c
- *
- *  Created on: May 28, 2020
- *      Author: Amr Ibrahim
+/**
+ * @file 	EXT_INT_cfg.c
+ * @author 	Amr (Ibrahimamr222@gmail.com)
+ * @brief 	This file is the Implementation for External Interrupt Configuration for STM32F103
+ * @version 0.1
+ * @date 2020-06-05
+ * @copyright Copyright (c) 2020
  */
-
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile DGPIO.h
+ */
 #include "DGPIO.h"
+/**
+ * @headerfile EXT_INT.h
+ */
 #include "EXT_INT.h"
+/**
+ * @headerfile EXT_INT_cfg.h
+ */
 #include "EXT_INT_cfg.h"
 
 

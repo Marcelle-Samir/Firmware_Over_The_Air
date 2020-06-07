@@ -1,22 +1,67 @@
-/*
- * DNVIC.c
- *
- *  Created on: Feb 22, 2020
- *      Author: Ahmed Qandeel
+/**
+ * @file DNVIC.c
+ * @author Ahmed Qandeel (Ahmed.qandeel96@gmail.com)
+ * @brief This file is the Implementation for NVIC Driver for Cortex M3 
+ * @version 0.1
+ * @date 2020-06-05
+ * @copyright Copyright (c) 2020
  */
 
+
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+
+/**
+ * @headerfile DNVIC.h
+ */
 #include "DNVIC.h"
 
+/**
+ * @def 	NVIC_BASE_ADDRESS
+ * @brief 	NVIC peripheral base address 
+ */
 #define NVIC_BASE_ADDRESS  (( NVIC_t*) 0XE000E100)
+/**
+ * @def 	SCB_AIRCR
+ * @brief 	NVIC Application Interrupt and Reset Control Register 
+ */
 #define SCB_AIRCR *((volatile uint_32t*) 0XE000ED0C)
+
+/**
+ * @def 	SCB_VTOR
+ * @brief 	Vector Table Offset register
+ */
 #define SCB_VTOR  *((volatile uint_32t*) 0xE000ED08)
 
-
+/**
+ * @def 	PASSWORD_MASK
+ * @brief 	Password to make Software reset 
+ */
 #define PASSWORD_MASK  0X05FA0000
-#define FLASH_BASE_ADDRESS 0x08000000
-#define OFFSET_POSITION 0x08
-#define RESET_MASK 0x04
 
+/**
+ * @def 	FLASH_BASE_ADDRESS
+ * @brief 	Base Address of Flash
+ */
+#define FLASH_BASE_ADDRESS 0x08000000
+
+/**
+ * @def 	OFFSET_POSITION
+ * @brief 	used in shifting offest value to be corresponding for offest bits in Regsiter 
+ */
+#define OFFSET_POSITION 0x08
+
+/**
+ * @def 	RESET_MASK
+ * @brief 	Base Address of Flash
+ */
+#define RESET_MASK 0x04
+/**
+ * @typedef		NVIC_t 
+ * @brief		Struct of All Registers in NVIC Driver	
+ */
 typedef struct
 {
 	uint_32t ISER[8];
@@ -31,18 +76,14 @@ typedef struct
 	uint_32t Reserved4[56];
 	uint_8t IPR[240];
 }NVIC_t;
-/*
-typedef struct
-{
-}Prior_t;
+
+
+
+/**
+ * @brief NV pointer to struct NVIC_t 
  */
-
-
-
-
-
 NVIC_t   *NV=NVIC_BASE_ADDRESS;
-//Prior_t  *Prior_Arr=NVIC_IPR;
+
 
 uint_8t DNVIC_EnableIRQ(uint_8t IRQn)
 {
@@ -52,7 +93,7 @@ uint_8t DNVIC_EnableIRQ(uint_8t IRQn)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -66,7 +107,7 @@ uint_8t DNVIC_DisableIRQ(uint_8t IRQn)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -79,7 +120,7 @@ uint_8t DNVIC_SetPendingIRQ (uint_8t IRQn)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -92,7 +133,7 @@ uint_8t DNVIC_ClearPendingIRQ (uint_8t IRQn)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -105,7 +146,7 @@ uint_8t DNVIC_GetPendingIRQ (uint_8t IRQn, uint_8t *Val)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -118,7 +159,7 @@ uint_8t DNVIC_GetActive (uint_8t IRQn, uint_8t *Val)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -131,7 +172,7 @@ uint_8t DNVIC_SetPriorityGrouping(uint_32t priority_grouping)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 
@@ -147,12 +188,12 @@ uint_8t DNVIC_SetPriority (uint_8t IRQn, uint_8t priority)
 		}
 		else
 		{
-			return NOT_OK;
+			return NOK;
 		}
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -166,7 +207,7 @@ uint_8t DNVIC_GetPriority (uint_8t IRQn, uint_8t *priority)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }

@@ -1,83 +1,87 @@
-typedef unsigned char uint_8t;
-typedef unsigned short int uint_16t;
-typedef unsigned long int uint_32t;
-typedef signed char int_8t;
-typedef signed short int int_16t;
-typedef signed short int int_32t;
+/**
+ * @file DRCC.h
+ * @author Mostafa (mnader96@gmail.com)
+ * @brief This file is a user interface for RCC Driver for STM32F103
+ * @version 0.1
+ * @date 2020-06-05
+ * @copyright Copyright (c) 2020
+ */
 
-#define OK 		0
-#define NOT_OK 	1
+#ifndef DRCC_H_
+#define DRCC_H_
 
-#define ON 		1
-#define OFF 	0
-
-/*************************************
- *********CLOCK_STATUS_TYPES**********
- *************************************/
-
+/**
+ * @def     HSI_ENABLE
+ * @brief   Used to Enable HSI
+ */
 #define HSI_ENABLE 0x10000001
+/**
+ * @def     HSE_ENABLE
+ * @brief   Used to Enable HSE
+ */
 #define HSE_ENABLE 0x10010000
+/**
+ * @def     PLL_ENABLE
+ * @brief   Used to Enable PLL
+ */
 #define PLL_ENABLE 0x11000000
 
-/************************************************************************
- * Function name: DRCC_SetClkStatus
- *
- * parameters:  Input:
- *                 clk
- *                     type: uint_32t
-                       Description: Clock Type (HSI_ENABLE,HSE_ENABLE,PLL_ENABLE)
- *                status
- *                     type: uint_8t
- *                     Description: Clock Status Parameters(ON,OFF)
- *
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to set the Clock state
- ***************************************************************************/
+/**
+ * @brief   Function to set the Clock State
+ * @param   clk      Variable of uint_32t describe Clock Type
+ * @param   status   Variable of uint_8t describe Clock Status (ON,OFF)
+ * @return  uint_8t :   OK  | NOK
+ */
 
 uint_8t DRCC_SetClkStatus (uint_32t clk,uint_8t status);
 
-/*******************************************************************************************************************/
-
-/*************************************
- *********CLOCK_SYSTEM_TYPES**********
- *************************************/
+/**
+ * @def     HSI_SYS
+ * @brief   used to make HSI Clock the System Clock 
+ */
 
 #define HSI_SYS    0x20000000
+/**
+ * @def     HSE_SYS
+ * @brief   used to make HSE Clock the System Clock 
+ */
 #define HSE_SYS    0x20000001
+/**
+ * @def     PLL_SYS
+ * @brief   used to make PLL Clock the System Clock 
+ */
 #define PLL_SYS    0x20000002
 
-/************************************************************************
- * Function name: DRCC_SetSystemClk
- *
- * parameters:  Input:
- *                 clk
- *                     type: uint_32t
-                        Description: Clock types to be assigned as system clock(HSI_SYS,HSE_SYS,PLL_SYS)
-
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function Set the system Clock
- ***************************************************************************/
+/**
+ * @brief   Function to set the System Clock 
+ * @param   clk      Variable of uint_32t describe Clock Type to be System Clock(HSI_SYS,HSE_SYS,PLL_SYS)
+ * @return  uint_8t :   OK  | NOK
+ */
 
 uint_8t DRCC_SetSystemClk (uint_32t clk);
 
-/*****************************************************************************************************************/
-
-/*************************************
- *********PLL_CLOCK_SOURCE************
- *************************************/
+/**
+ * @def      HSE_SRC 
+ * @brief    HSE Clock without Division 
+ */
 #define HSE_SRC				0x40010000
+/**
+ * @def      HSE_SRC_DIV_TWO	 
+ * @brief    HSE Clock divide by Two 
+ */
 #define HSE_SRC_DIV_TWO		0x40030000
+/**
+ * @def      HSI_SRC_DIV_TWO	 
+ * @brief    HSI Clock divide by Two 
+ */
 #define HSI_SRC_DIV_TWO		0x40000000
 
-/*************************************
- *****PLL_MULTIPLICATION_FACTORS******
- *************************************/
+/**
+ * @def  	PLL_input_clock_x_NUM  
+ * @brief	Prescaler of PLL 
+ *          NUM Range: 2 up to 16 
+ * 					
+ */
 #define PLL_input_clock_x_2    0
 #define PLL_input_clock_x_3    1
 #define PLL_input_clock_x_4    2
@@ -94,38 +98,22 @@ uint_8t DRCC_SetSystemClk (uint_32t clk);
 #define PLL_input_clock_x_15   13
 #define PLL_input_clock_x_16   14
 
-/************************************************************************
- * Function name: DRCC_SetPLLConfig
- *
- * parameters:  Input:
- *                 src
- *                     type: uint_32t
-                        Description: Type of Clock source to PLL (HSE_SRC,HSE_SRC_DIV_TWO,HSI_SRC_DIV_TWO)
- *                 Pin
- *                     type: u8
- *                     Description: Multiplication Factor (PLL_input_clock_x_2  ,  PLL_input_clock_x_3 ,
- *                                                         PLL_input_clock_x_5  ,  PLL_input_clock_x_4 ,
- *                                                         PLL_input_clock_x_6  ,  PLL_input_clock_x_7 ,
- *                                                         PLL_input_clock_x_8  ,  PLL_input_clock_x_9 ,
- *                                                         PLL_input_clock_x_10 , PLL_input_clock_x_11 ,
- *                                                         PLL_input_clock_x_12 , PLL_input_clock_x_13 ,
- *                                                         PLL_input_clock_x_14 , PLL_input_clock_x_15 ,
- *                                                         PLL_input_clock_x_16)
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to Configure Clock source of PLL and it's multiplication Factor
- ***************************************************************************/
+/**
+ * @brief   Function to Configure Clock Source of PLL and it's Multiplication Factor
+ * @param   src  Variable of uint_32t describe Clock Source to PLL (HSE_SRC,HSE_SRC_DIV_TWO,HSI_SRC_DIV_TWO)
+ * @param   MULL  Variable of uint_8t describe Miltiplication Factor (PLL_input_clock_x_2 up to PLL_input_clock_x_16)
+ * @return  uint_8t :   OK  | NOK
+ */
 
 uint_8t DRCC_SetPLLConfig (uint_32t src, uint_8t MULL);
 
-/*****************************************************************************************************************/
 
-/*************************************
- ************PERIPHERALS**************
- *************************************/
-#define AFIO_ENABLE 	0x20000001
+
+/**
+ * @def    PERIPHERAL_ENABLE  
+ * @brief  Macros used to enable Peripherals Clock   
+ * 
+ */
 #define GPIO_A_ENABLE 	0x20000004
 #define GPIO_B_ENABLE 	0x20000008
 #define GPIO_C_ENABLE 	0x20000010
@@ -136,59 +124,59 @@ uint_8t DRCC_SetPLLConfig (uint_32t src, uint_8t MULL);
 #define USART_1_ENABLE	0x20004000
 #define DMA_1_ENABLE	0x80000001
 
-/************************************************************************
- * Function name: DRCC_SetPriephralStatus
- *
- * parameters:  Input:
- *                 priephral
- *                     type: uint_32t
- *                       Description: Peripherals Numbers (GPIO_A_ENABLE, GPIO_B_ENABLE,
- *                                                         GPIO_C_ENABLE, GPIO_D_ENABLE,
- *                                                         GPIO_E_ENABLE, GPIO_F_ENABLE,
- *                                                         GPIO_G_ENABLE, USART_1_ENABLE
- *                                                         DMA_1_ENABLE                )
- *                 Status
- *                     type: uint_8t
- *                     Description: Clock Status Parameters(ON,OFF)
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to Enable/Disable Clock to peripheral
- ***************************************************************************/
-
+/**
+ * @brief   Function to Enable/Disable Clock to peripheral
+ * @param   priephral Variable of uint_32t describe Peripheral ex (GPIO_A_ENABLE,DMA_1_ENABLE)
+ * @param   Status  Variable of uint_8t describe Clock Status of Peripheral (ON,OFF)
+ * @return  uint_8t :   OK  | NOK
+ */
 uint_8t DRCC_SetPriephralStatus (uint_32t priephral,uint_8t Status);
 
-/*****************************************************************************************************************/
 
-/*************************************
- ************BUSES********************
- *************************************/
+/**
+ * @def      AHB_PRESCALER
+ * @brief    used to select AHB Bus 
+ */
 #define AHB_PRESCALER  0x08000000
+/**
+ * @def      APB1_PRESCALER
+ * @brief    used to select APB1 Bus 
+ */
 #define APB1_PRESCALER 0x08000001
+/**
+ * @def      APB2_PRESCALER
+ * @brief    used to select APB2 Bus 
+ */
 #define APB2_PRESCALER 0x08000002
 
-/*************************************
- ************APB2_PRESCALER***********
- *************************************/
+/**
+ * @def      APB2_PRESCALER_x
+ * @brief    APB2 Prescaler 
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16   
+ */
+
 #define APB2_PRESCALER_NOT_DIVIDED 0
 #define APB2_PRESCALER_DIV_2       4
 #define APB2_PRESCALER_DIV_4       5
 #define APB2_PRESCALER_DIV_8       6
 #define APB2_PRESCALER_DIV_16      7
 
-/*************************************
- ************APB1_PRESCALER***********
- *************************************/
+/**
+ * @def      APB1_PRESCALER_x
+ * @brief    APB1 Prescaler 
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16   
+ */
 #define APB1_PRESCALER_NOT_DIVIDED 0
 #define APB1_PRESCALER_DIV_2       4
 #define APB1_PRESCALER_DIV_4       5
 #define APB1_PRESCALER_DIV_8       6
 #define APB1_PRESCALER_DIV_16      7
 
-/*************************************
- ************AHB_PRESCALER*************
- *************************************/
+/**
+ * @def      AHB_PRESCALER_x
+ * @brief    AHB Prescaler 
+ *           x : NOT_DIVIDED or 2 or 4 or 8 or 16 or 64 or 128 or 256 or 512  
+ */
 #define AHB_PRESCALER_NOT_DIVIDED 0
 #define AHB_PRESCALER_DIV_2       8
 #define AHB_PRESCALER_DIV_4       9
@@ -199,68 +187,50 @@ uint_8t DRCC_SetPriephralStatus (uint_32t priephral,uint_8t Status);
 #define AHB_PRESCALER_DIV_256    14
 #define AHB_PRESCALER_DIV_512    15
 
-/************************************************************************
- * Function name: DRCC_SetBusPrescale
- *
- * parameters:  Input:
- *                 Bus
- *                     type: uint_32t
- *                       Description: Bus Number (AHB_PRESCALER, APB1_PRESCALER, APB2_PRESCALER)
- *                 Prescale
- *                     type: uint_8t
- *                     Description: Bus Prescaler (APB2_PRESCALER_NOT_DIVIDED , APB2_PRESCALER_DIV_2
- *												   APB2_PRESCALER_DIV_4       , APB2_PRESCALER_DIV_8
- *                                                 APB2_PRESCALER_DIV_16      ,
- *
- *                                                 APB1_PRESCALER_NOT_DIVIDED , APB1_PRESCALER_DIV_2
- *                                                 APB1_PRESCALER_DIV_4       , APB1_PRESCALER_DIV_8
- *                                                 APB1_PRESCALER_DIV_16      ,
- *
- *                                                 AHB_PRESCALER_NOT_DIVIDED  , AHB_PRESCALER_DIV_2
- *                                                 AHB_PRESCALER_DIV_4        , AHB_PRESCALER_DIV_8
- *                                                 AHB_PRESCALER_DIV_16       , AHB_PRESCALER_DIV_64
- *                                                 AHB_PRESCALER_DIV_128      , AHB_PRESCALER_DIV_256
- *                                                 AHB_PRESCALER_DIV_512                            )
- *
- *
- *              Output: NA
- *              In/out: NA
- * return: E_OK, E_NOK
- * Description: a function to set Bus Prescaler
- ***************************************************************************/
+/**
+ * @brief   Function to set Bus Prescaler
+ * @param   Bus       Variable of uint_32t describe Bus Number (AHB_PRESCALER, APB1_PRESCALER, APB2_PRESCALER)
+ * @param   Prescale  Variable of uint_8t describe  Bus Prescaler ex  (APB2_PRESCALER_NOT_DIVIDED,APB1_PRESCALER_DIV_8,AHB_PRESCALER_DIV_256)
+ * @return  uint_8t :   OK  | NOK
+ */
 
 uint_8t DRCC_SetBusPrescale (uint_32t Bus,uint_8t Prescale);
 
-/*****************************************************************************************************************/
-
-/*************************************
- ************Bus_FREQUENCY*************
- *************************************/
+/**
+ * @def      HSI_FREQ
+ * @brief    describe HSI Frequency     
+ */
 #define HSI_FREQ	8000000
+/**
+ * @def      HSE_FREQ
+ * @brief    describe HSE Frequency     
+ */
 #define HSE_FREQ	8000000
 
-/*************************************
- ************BUS**********************
- *************************************/
+/**
+ * @def      AHB_BUS
+ * @brief    used to check AHB Bus 
+ */
 #define AHB_BUS  77
+/**
+ * @def      APB1_BUS
+ * @brief    used to check APB1 Bus 
+ */
 #define APB1_BUS 78
+/**
+ * @def      APB2_BUS
+ * @brief    used to check APB2 Bus 
+ */
 #define APB2_BUS 79
 
-/************************************************************************
- * Function name: DRCC_GetBusClock
- *
- * parameters:  Input:
- *                 Bus
- *                     type: uint_32t
- *                     Description: Bus Number (AHB_BUS APB1_BUS APB2_BUS)
- *
- *              Output: NA
- *              In/out: CLK
- *                     type: pointer to uint_32t
- *                     Description: Clock which to be read
- * return: E_OK, E_NOK
- * Description: a function to get bus Clock
- ***************************************************************************/
+
+/**
+ * @brief   Function to get bus Clock
+ * @param   Bus   Variable of uint_32t describe Bus Number (AHB_PRESCALER, APB1_PRESCALER, APB2_PRESCALER)
+ * @param   CLK   pointer to uint_32t Clock which to be read  
+ * @return  uint_8t :   OK  | NOK
+ */
 uint_8t DRCC_GetBusClock (uint_32t Bus,uint_32t *CLK);
 
 
+#endif 

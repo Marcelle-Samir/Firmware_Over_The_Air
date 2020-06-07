@@ -1,10 +1,38 @@
+/**
+ * @file	DGPIO.c
+ * @author 	Mohanad (mohanad_sallam@hotmail.com)
+ * @brief 	This file is the Implementation for GPIO Driver for STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * @copyright Copyright (c) 2020 
+ */
+
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+
+/**
+ * @headerfile DGPIO.h
+ */
 #include "DGPIO.h"
 
-
+/**
+ * @def 	GPIO_CONFIG_MASK 
+ * @brief   Mask used to Clear Bits 
+ */
 #define GPIO_CONFIG_MASK	0x000000000000000f
 
-
+/**
+ * @def 	PULL_UP_MODE 
+ * @brief   Configuration of Pull Up Mode
+ */
 #define PULL_UP_MODE    0X0C
+
+/**
+ * @def 	PULL_DOWN_MODE 
+ * @brief   Configuration of Pull Down Mode
+ */
 #define PULL_DOWN_MODE  0X08
 
 
@@ -43,12 +71,12 @@ uint_8t GPIO_Config(GPIO_t * Pins )
 				}
 				else
 				{
-					return NOT_OK;
+					return NOK;
 				}
 			}
 			else
 			{
-				return NOT_OK;
+				return NOK;
 			}
 		}
 		config=config>>4;
@@ -72,7 +100,7 @@ uint_8t GPIO_Writee(Port_t *Port, uint_16t Pins ,uint_8t State)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 return OK;
 }
@@ -86,7 +114,7 @@ uint_8t GPIO_ReadPort(Port_t *Port,uint_16t * Value)
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 	return OK;
 }
@@ -108,12 +136,12 @@ uint_8t GPIO_ReadPin(Port_t *Port,uint_16t Pin,uint_8t * Value)
 		}
 		else
 		{
-			return NOT_OK;
+			return NOK;
 		}
 	}
 	else
 	{
-		return NOT_OK;
+		return NOK;
 	}
 return OK;
 }

@@ -1,25 +1,60 @@
-/*
- * DMA.c
- *
- *  Created on: Apr 15, 2020
- *      Author: MOSTAFA
+/**
+ * @file	DMA.c
+ * @author 	Marcelle (marcelle.samir.s@gmail.com)
+ * @brief 	This file is Implementation for DMA Driver for STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * @copyright Copyright (c) 2020
+ * 
  */
 
                   
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile DNVIC.h
+ */
 #include "DNVIC.h"
+/**
+ * @headerfile DMA.h
+ */
 #include "DMA.h"
+/**
+ * @headerfile DMA_Cfg.h
+ */
 #include "DMA_Cfg.h"
 
+/**
+ * @def 	ENABLE_DMA	
+ * @brief 	Enabe DMA    
+ */
 #define ENABLE_DMA			1
+/**
+ * @def 	CHANNELS_MAX_NUMBER	
+ * @brief 	Maximum Channels Number    
+ */
 #define CHANNELS_MAX_NUMBER	7
+/**
+ * @def 	COUNTER_MAX_NUMBER	
+ * @brief 	Maximum Number to transfer in one time    
+ */
 #define COUNTER_MAX_NUMBER  65535
 
 
 
-
+/**
+ * @typedef NotificationArray
+ * @brief 	Aray of struct from type Notify_t
+ */
 
 Notify_t NotificationArray[7];
-
+/**
+ * @typedef DMA_Channel
+ * @brief 	Registers of DMA Channel
+ * 
+ */
 typedef struct
 {
 	uint_32t CCR;
@@ -28,14 +63,26 @@ typedef struct
 	uint_32t CMAR;
 	uint_32t Reserved;
 }DMA_Channel;
-#define DMA_2_NVIC 11
+/**
+ * @def 	DMA_1_NVIC
+ * @brief   Offest of DMA Channels in Vector table offest
+ */
+#define DMA_1_NVIC 11
+/**
+ * @typedef DMA_t
+ * @brief 	Registers of DMA 
+ * 
+ */
 typedef struct
 {
 	uint_32t 			ISR;
 	uint_32t 			IFCR;
 	DMA_Channel Channel[7];
 }DMA_t;
-
+/**
+ * @def 	DMA 
+ * @brief 	Base Address of DMA 
+ */
 #define DMA ((volatile DMA_t*)0x40020000)
 
 extern DMA_Config DMA_Configure[MAX_NUMBER_OF_CHANNELS];
@@ -63,8 +110,8 @@ uint_8t D_DMA_Init(void)
 					DMA_Configure[Counter].TEIE    |
 					DMA_Configure[Counter].HTIE    |
 					DMA_Configure[Counter].TCIE    ;
-					ErrorStatus|=DNVIC_ClearPendingIRQ(DMA_Configure[Counter].ChannelNumber+DMA_2_NVIC);
-					ErrorStatus|=DNVIC_EnableIRQ(DMA_Configure[Counter].ChannelNumber+DMA_2_NVIC);
+					ErrorStatus|=DNVIC_ClearPendingIRQ(DMA_Configure[Counter].ChannelNumber+DMA_1_NVIC);
+					ErrorStatus|=DNVIC_EnableIRQ(DMA_Configure[Counter].ChannelNumber+DMA_1_NVIC);
 		}
 		else
 		{

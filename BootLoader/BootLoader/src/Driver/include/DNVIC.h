@@ -1,27 +1,20 @@
-/*
- * DNVIC.h
- *
- *  Created on: Feb 22, 2020
- *      Author: Ahmed Qandeel
+/**
+ * @file DNVIC.h
+ * @author Ahmed Qandeel (Ahmed.qandeel96@gmail.com)
+ * @brief This file is the user interface for NVIC Driver for Cortex M3
+ * @version 0.1
+ * @date 2020-06-05
+ * @copyright Copyright (c) 2020
  */
 
 #ifndef DNVIC_H_
 #define DNVIC_H_
 
-typedef unsigned char uint_8t;
-typedef unsigned short int uint_16t;
-typedef unsigned long int uint_32t;
-typedef unsigned long long uint_64t;
-typedef signed char int_8t;
-typedef signed short int int_16t;
-typedef signed short int int_32t;
-
-#define OK		0
-#define NOT_OK 	1
-
-/*************************************
- *******PERIPHERAL_INTERRUPTS*********
- *************************************/
+/**
+ * @def     Peripheral 
+ * @brief   Numbers asssigned to peripherals is the offest of them in vector table array 
+ * 
+ */
 #define WWDG				0
 #define PVD					1
 #define TAMPER				2
@@ -83,439 +76,128 @@ typedef signed short int int_32t;
 #define DMA2_CHANNEL3		58
 #define DMA2_CHANNEL4_5		59
 
-/************************************************************************
- * Function name: DNVIC_EnableIRQ
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Enable peripheral Interrupt
- ***************************************************************************/
-
+/**
+ * @brief   Function to Enable peripheral Interrupt 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_EnableIRQ(uint_8t IRQn);
 
-/************************************************************************
- * Function name: DNVIC_DisableIRQ
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Disable peripheral Interrupt
- ***************************************************************************/
-
+/**
+ * @brief   Function to Disable peripheral Interrupt 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_DisableIRQ(uint_8t IRQn);
 
-/************************************************************************
- * Function name: DNVIC_SetPendingIRQ
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Set Peripheral Pending Interrupt Flag By Software
- ***************************************************************************/
-
+/**
+ * @brief   Function to Set Peripheral Pending Interrupt Flag By Software 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_SetPendingIRQ (uint_8t IRQn);
 
-/************************************************************************
- * Function name: DNVIC_ClearPendingIRQ
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to ReSet Peripheral Pending Interrupt Flag By Software
- ***************************************************************************/
-
+/**
+ * @brief   Function to Reset Peripheral Pending Interrupt Flag By Software 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_ClearPendingIRQ (uint_8t IRQn);
 
-/************************************************************************
- * Function name: DNVIC_GetPendingIRQ
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: VAL
- *                      type: pointer to uint_8t
- *                      Description: Pending Flag which to be read
- * return: OK, NOT_OK
- * Description: a function to get Pending Flag Value
- ***************************************************************************/
-
+/**
+ * @brief   Function to get Pending Flag Value 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @param   Val  pointer  of uint_8t , Pending Flag which to be read assigned to pointer 
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_GetPendingIRQ (uint_8t IRQn, uint_8t *Val);
 
-/************************************************************************
- * Function name: DNVIC_GetActive
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: VAL
- *                      type        : pointer to uint_8t
- *                      Description : Active Flag which to be read
- * return: OK, NOT_OK
- * Description: a function indicate which interrupts are active.
- ***************************************************************************/
-
+/**
+ * @brief   Function to get Active Flag Value 
+ * @param   IRQn Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @param   Val  pointer  of uint_8t , Active Flag which to be read assigned to pointer 
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_GetActive (uint_8t IRQn, uint_8t *Val);
-/**********************************************************************************************************************/
 
-/*************************************
- ************PRIORITY_GROUPING********
- *************************************/
+/**
+ * @def    NUM_PREEMPTION_NUM_SUBGROUP
+ * @brief  define Groups and Subgroups ex (ALL_PREEMPTION , ONE_PREEMPTION_THREE_SUBGROUP) 
+ */
 #define ALL_PREEMPTION						0X00000300
 #define THREE_PREEMPTION_ONE_SUBGROUP		0X00000400
 #define TWO_PREEMPTION_TWO_SUBGROUP			0X00000500
 #define ONE_PREEMPTION_THREE_SUBGROUP		0X00000600
 #define ALL_SUBGROUP						0X00000700
 
-/************************************************************************
- * Function name: DNVIC_SetPriorityGrouping
- *
- * parameters:  Input:
- *                 priority_grouping
- *                     type: uint_32t
- *                      Description: Priority Type (ALL_PREEMPTION                , THREE_PREEMPTION_ONE_SUBGROUP
- *                                                  TWO_PREEMPTION                ,_TWO_SUBGROUP
- *                                                  ONE_PREEMPTION_THREE_SUBGROUP , ALL_SUBGROUP                )
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function provides priority grouping control for the exception model
- ***************************************************************************/
-
+/**
+ * @brief   Function provides priority grouping control for the exception model
+ * @param   priority_grouping Variable of uint_32t , Priority Type (ALL_PREEMPTION , THREE_PREEMPTION_ONE_SUBGROUP)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_SetPriorityGrouping(uint_32t priority_grouping);
 
-/************************************************************************
- * Function name: DNVIC_SetPriority
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                      Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *                 priority
- *                     type: uint_8t
- *                     Description: Priority (0..16)
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Set Interrupt Priority
- ***************************************************************************/
-
+/**
+ * @brief   Function to Set Interrupt Priority 
+ * @param   IRQn        Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @param   priority    Variable of uint_8t , Priority (0..16)
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_SetPriority (uint_8t IRQn, uint_8t priority);
 
-/************************************************************************
- * Function name: DNVIC_GetPriority
- *
- * parameters:  Input:
- *                 IRQn
- *                     type: uint_8t
- *                     Description: Interrupt Request Number (WWDG			, PVD
- *                                                            TAMPER		, RTC
- *                                                            FLASH			, RCCINT
- *                                                            EXTI0			, EXTI1
- *                                                            EXTI2			, EXTI3
- *                                                            EXTI4			, DMA1_CHANNEL1
- *                                                            DMA1_CHANNEL2	, DMA1_CHANNEL3
- *                                                            DMA1_CHANNEL4	, DMA1_CHANNEL5
- *                                                            DMA1_CHANNEL6	, DMA1_CHANNEL7
- *                                                            ADC1_2		, USB_HP_CAN_TX
- *                                                            USB_LP_CAN_RX0, CAN_RX1
- *                                                            CAN_SCE		, EXTI9_5
- *                                                            TIM1_BRK		, TIM1_UP
- *                                                            TIM1_TRG_COM	, TIM1_CC
- *                                                            TIM2			, TIM3
- *                                                            TIM4			, I2C1_EV
- *                                                            I2C1_ER		, I2C2_EV			                                          		,
- *                                                            I2C2_ER		, SPI1
- *                                                            SPI2			, USART1
- *                                                            USART2		, USART3
- *                                                            EXTI15_10		, RTCALARM
- *                                                            USBWAKEUP		, TIM8_BRK
- *                                                            TIM8_UP		, TIM8_TRG_COM
- *                                                            TIM8_CC		, ADC3
- *                                                            FSMC			, SDIO
- *                                                            TIM5			              )
- *
- *              Output: NA
- *              In/out: VAL
- *                      type        : pointer to uint_8t
- *                      Description : Priority which to be read
- * return: OK, NOT_OK
- * Description: a function to Read peripheral Priority
- ***************************************************************************/
-
+/**
+ * @brief   Function to Read peripheral Priority 
+ * @param   IRQn        Variable of uint_8t , Interrupt Request Number is number assigned to peripheral as it is offest of them in vector table array ex (WWDG , TIM2)
+ * @param   priority    Pointer to uint_8t , Priority which to be read
+ * @return  OK | NOT_OK
+ */
 uint_8t DNVIC_GetPriority (uint_8t IRQn, uint_8t *priority);
 
-/************************************************************************
- * Function name: DNVIC_voidDisableAllPeripherals
- *
- * parameters:  NA
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Disable All peripherals interrupt
- ***************************************************************************/
-
+/**
+ * @brief   Function to Disable All peripherals interrupt
+ * @param   NA
+ * @return  NA
+ */
 void DNVIC_voidDisableAllPeripherals(void);
 
-/************************************************************************
- * Function name: DNVIC_voidEnableAllPeripherals
- *
- * parameters:  NA
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Enable All peripherals interrupt
- ***************************************************************************/
-
+/**
+ * @brief   Function to Enable All peripherals Interrupt
+ * @param   NA
+ * @return  NA
+ */
 void DNVIC_voidEnableAllPeripherals(void);
 
-/************************************************************************
- * Function name: DNVIC_voidDisableAllFaults
- *
- * parameters:  NA
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Disable all faults Interrupts
- ***************************************************************************/
-
+/**
+ * @brief   Function to Disable all faults Interrupts
+ * @param   NA
+ * @return  NA
+ */
 void DNVIC_voidDisableAllFaults(void);
 
-/************************************************************************
- * Function name: DNVIC_voidEnableAllFaults
- *
- * parameters:  NA
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to Enable all faults Interrupts
- ***************************************************************************/
+/**
+ * @brief   Function to Enable all faults Interrupts
+ * @param   NA
+ * @return  NA
+ */
 
 void DNVIC_voidEnableAllFaults(void);
 
-/************************************************************************
- * Function name: DRCC_SetClkStatus
- *
- * parameters:  Input:
- *                 clk
- *                     type: uint_8t
- *                     Description: Priority (HSI_ENABLE,HSE_ENABLE,PLL_ENABLE)
- *
- *
- *              Output: NA
- *              In/out: NA
- * return: OK, NOT_OK
- * Description: a function to set Base Priority
- ***************************************************************************/
+/**
+ * @brief   Function to disable interrupts only with priority lower than certain level 
+ * @param   priority Variable of uint_8t , Priority (0..16)
+ * @return  NA
+ */
 void DNVIC_voidSetBASEPRI(uint_8t priority);
-
+/**
+ * @brief   Function to change vector Table offest  
+ * @param   offset Variable of uint_32t , Change vector Table offest  
+ * @return  NA
+ */
 void DNVIC_voidChangeVectorOffset (uint_32t offset);
+/**
+ * @brief   Function to make Software reset 
+ * @param   NA 
+ * @return  NA
+ */
 void DNVIC_voidSysReset(void);
 #endif /* DNVIC_H_ */

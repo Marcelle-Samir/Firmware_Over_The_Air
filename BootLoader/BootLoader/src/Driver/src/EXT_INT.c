@@ -1,15 +1,39 @@
-/*
- * EXT_IXNT.c
- *
- *  Created on: May 28, 2020
- *      Author: Amr Ibrahim
+/**
+ * @file 	EXT_INT.c
+ * @author 	Amr (Ibrahimamr222@gmail.com)
+ * @brief 	This file is the Implementation for Flash Driver Interface for STM32F103
+ * @version 0.1
+ * @date 2020-06-05
+ * @copyright Copyright (c) 2020
+ */
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile DRCC.h
  */
 #include "DRCC.h"
+/**
+ * @headerfile DGPIO.h
+ */
 #include "DGPIO.h"
+/**
+ * @headerfile DNVIC.h
+ */
 #include "DNVIC.h"
+/**
+ * @headerfile EXT_INT.h
+ */
 #include "EXT_INT.h"
+/**
+ * @headerfile EXT_INT_cfg.h
+ */
 #include "EXT_INT_cfg.h"
-
+/**
+ * @typedef 	EXTI_t
+ * @brief 		External Interrupt Registers 
+ */
 typedef struct {
 	uint_32t EXTI_IMR ;
 	uint_32t EXTI_EMR ;
@@ -19,7 +43,10 @@ typedef struct {
 	uint_32t EXTI_PR;
 }EXTI_t;
 
-
+/**
+ * @typedef 	AFIO_t
+ * @brief 		Alternative Function Input Output Registers 
+ */
 typedef struct {
 	uint_32t  AFIO_EVCR        		;
 	uint_32t  AFIO_MAPR           	;
@@ -27,8 +54,15 @@ typedef struct {
  	uint_32t  AFIO_MAPR2           	;
 
 }AFIO_t;
-
+/**
+ * @def		EXTI 
+ * @brief 	Base address of External Interrupt
+ */
 #define EXTI ((EXTI_t*) 0x40010400)
+/**
+ * @def		AFIO
+ * @brief 	Base address of Alternative Function Input Output 
+ */
 #define AFIO ((AFIO_t*) 0x40010000)
 
 extern EXTI_CFG_t EXTI_CFG[NUMOFEXTI];
@@ -82,7 +116,7 @@ uint_8t DEXTI_SetCBF(CBF_t Call_Back){
 	if(Call_Back){
 		CBF = Call_Back;
 	}else {
-		Local_Error = NOT_OK;
+		Local_Error = NOK;
 	}
 return Local_Error;
 }

@@ -1,12 +1,24 @@
-/*
- * DMA_Cfg.c
- *
- *  Created on: Apr 15, 2020
- *      Author: MOSTAFA
+/**
+ * @file	DMA.h
+ * @author 	Marcelle (marcelle.samir.s@gmail.com)
+ * @brief 	This file is Implemtation of DMA Configuration for DMA Driver for STM32F103
+ * @version 0.1
+ * @date 	2020-06-05
+ * @copyright Copyright (c) 2020
+ * 
  */
 
-
+/**
+ * @headerfile STD_TYPES.h
+ */
+#include "STD_TYPES.h"
+/**
+ * @headerfile DMA.h
+ */
 #include "DMA.h"
+/**
+ * @headerfile DMA_Cfg.h
+ */
 #include "DMA_Cfg.h"
 
 
