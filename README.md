@@ -289,7 +289,7 @@ we're using 3.5 Inch screen, description of the pins are shown below:
 
 >cd LCD-show/ \
 
->sudo ./LCD35-show
+>sudo ./LCD35-show \
 
 now reboot thr Raspberry Pi
 
