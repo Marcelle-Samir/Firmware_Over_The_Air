@@ -260,6 +260,40 @@ you can try this GUI by
 you can also try this by:
 >yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
 
+## Raspberry Pi touch screen
+we're using 3.5 Inch screen, description of the pins are shown below:
+
+<img src="images/screen_pins.png" width="500">
+
+- Raspberry Pi configurations for 3.5” LCD Display Screen
+
+>sudo raspi-config
+
+- Navigate to Boot Options -> Desktop/CLI ,select option B4 Desktop Autologin Desktop GUI, automatically logged in as ‘pi’ user
+
+<img src="images/desktop_option.png" width="500">
+
+- Now again navigate to interfacing options and enable SPI
+
+<img src="images/enable_spi.png" width="500">
+
+**note: you may need to recheck if the UART is enabled**
+
+- now install your Raspberry Pi screen driver
+
+>sudo rm -rf LCD-show \
+
+>git clone https://github.com/goodtft/LCD-show.git \
+
+>chmod -R 755 LCD-show \
+
+>cd LCD-show/ \
+
+>sudo ./LCD35-show
+
+now reboot thr Raspberry Pi
+
+
 ## References
 
 **Connecting to RPI3 - SSH Over Wired**
