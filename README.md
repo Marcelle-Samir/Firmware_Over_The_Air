@@ -193,37 +193,37 @@ Service accounts differ from user accounts in a few key ways:
 - From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
 
 
-<img src="images/step1.png" width="500">
+<img src="images/stepp1.png" width="500">
 
 - Click on CREATE SERVICE ACCOUNT
 
 
-<img src="images/step2.png" width="500">
+<img src="images/stepp2.png" width="500">
 
 - Add Service account name and Service account description
 
 
-<img src="images/step3.png" width="500">
+<img src="images/stepp3.png" width="500">
 
 - Select a role for the created Service account
 
 
-<img src="images/step4.png" width="500">
+<img src="images/stepp4.png" width="500">
 
 - Grant specific user access to the created service account
 
 
-<img src="images/step5.png" width="500">
+<img src="images/stepp5.png" width="500">
 
 - Generate an authenticated key file through creating a key and press done 
 
 
-<img src="images/step6.png" width="500">
+<img src="images/stepp6.png" width="500">
 
 - The generated .JSON key file can be used through VMs for accessing the cloud server that generated this service account key through different APIs, in our project we connected through this key file through Python using google.cloud provided library.
 
 
-<img src="images/step7.png" width="500">
+<img src="images/stepp7.png" width="500">
 
 ## Serice Account Key Constaints
 
@@ -235,7 +235,7 @@ Service accounts differ from user accounts in a few key ways:
 - If you detected any violations from any generated service key account it can be disabled immediately by the owner.
 
 
-<img src="images/step9.png" width="500">
+<img src="images/stepp8.png" width="500">
 
 ## PC GUI
  
