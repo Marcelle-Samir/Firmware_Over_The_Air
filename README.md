@@ -6,11 +6,9 @@ List of components we used:
 >3.5 Inch Raspberry Pi screen \
 >STMF103 microcontroller
 
-## Raspberry Pi
+## Raspberry Pi 
 
-### hello
-
-**The image for Raspberry Pi**
+### The image for Raspberry Pi
 
 - you can download the Raspian Image from:
 https://www.raspberrypi.org/downloads/raspbian/
@@ -23,7 +21,7 @@ https://www.raspberrypi.org/downloads/raspbian/
 >dd bs=4M if=raspbian.img of=/dev/sdX status=progress conv=fsync
 
 
-**Enable Ethernet connection**
+### Enable Ethernet connection
 
 To Configure a static IP for RPI3, Modify the file "/etc/network/interfaces" on your Raspbian image (or any Debian image):
 
@@ -50,7 +48,7 @@ To connect with RaspberryPi:
 >ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"\
 >ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
 
-**Enable built in WIFI**
+### Enable built in WIFI
 - enter this in terminal to configure wifi
 >sudo raspi-config
 
@@ -67,7 +65,8 @@ To connect with RaspberryPi:
 - then enter this command
 >sudo wpa_cli -i wlan0 reconfigure #it will reply with "OK"
 
-**connect to RaspberryPi terminal over WIFI**
+### connect to Raspberry Pi terminal over WIFI
+
 add those lines to "/etc/network/interfaces"
 >auto wlan0\
 >iface wlan0 inet static\
@@ -78,7 +77,8 @@ add those lines to "/etc/network/interfaces"
 >   netmask 255.255.255.0\
 >   gateway 192.168.1.1
 
-**Configure the built in UART of the Raspberry Pi**
+### Configure the built in UART of the Raspberry Pi
+
 >sudo raspi-config
 
 - select -> interfacing options
@@ -104,7 +104,7 @@ add those lines to "/etc/network/interfaces"
 
 - add "enable_uart=1" at the end of /boot/config.txt
 
-In PC(Linux) terminal
+**In PC(Linux) terminal**
 - to make sure it is connected and given a port name by the kernel use:
 >dmesg  -wH  (ex.  /dev/ttyUSB0 )
 - to change its permissions so you can read and write to it:
@@ -120,7 +120,7 @@ and cobbect TTL(GND) to RaspberryPi(GND)
 <img src="images/uart_pins.jpeg" width="300">
 
 
-In Raspberry Pi terminal
+**In Raspberry Pi terminal**
 - To check if mini UART (ttyS0) or PL011 UART (ttyAMA0) is mapped to UART pins, enter following commands:
 >ls -l /dev
 - to test reading from (ttyS0):
@@ -131,10 +131,10 @@ In Raspberry Pi terminal
 
 You can check the references for further help on how they are created.
 
-**Adding python3 library**
+### Adding python3 library
 >sudo apt install python3-pyelftools
 
-**google cloud for Raspberry Pi**
+### google cloud for Raspberry Pi
 we are using google cloud to fetch the .elf from,\
 sign in to google cloud using gmail account
 then create a new project
@@ -143,7 +143,75 @@ then create a new project
 
 and then create a new bucket inside this project.
 
-**Adding google cloud sdk for Debian (from Raspberry by terminal):**
+
+### Raspberry Pi GUI
+we're using bash script to generete this GUI by using **YAD**
+
+- a touch screen is connected to the raspberry Pi as a simulation for Car's dashboard, and we send a notification message to the car on the screen once a new firmware is available and already downloaded to the raspberry Pi
+
+<img src="images/new_firmware.png" width="500">
+
+**you can try this GUI by:**
+>yad --title="3faret El Embedded FOTA project" --list --width=500 --height=200 --column "New Firmware for $controller_name is available. select action" 'Flash now' 'Snooze 5 min' --no-buttons --timeout=60using 
+
+- after the flashing of the new firmware is done, we also notify the car on the screen
+
+<img src="images/flash_done.png" width="500">
+
+**you can also try this by:**
+>yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
+
+### Raspberry Pi touch screen
+we're using 3.5 Inch screen, description of the pins are shown below:
+
+<img src="images/screen_pins.png" width="500">
+
+- Raspberry Pi configurations for 3.5” LCD Display Screen
+
+>sudo raspi-config
+
+- Navigate to Boot Options -> Desktop/CLI ,select option B4 Desktop Autologin Desktop GUI, automatically logged in as ‘pi’ user
+
+<img src="images/desktop_option.png" width="500">
+
+- Now again navigate to interfacing options and enable SPI
+
+<img src="images/enable_spi.png" width="500">
+
+**note: you may need to recheck if the UART is enabled**
+
+- now install your Raspberry Pi screen driver
+
+>sudo rm -rf LCD-show \
+
+>git clone https://github.com/goodtft/LCD-show.git \
+
+>chmod -R 755 LCD-show \
+
+>cd LCD-show/ \
+
+>sudo ./LCD35-show \
+
+now reboot the Raspberry Pi
+
+**note**
+
+to run our script as a daemon that runs as a "background" process (without a terminal or user interface), \
+we used rc.local before using GUI, but when we added the Raspberry Pi GUI part we had to use "LXDE autostart" instead to load the script when the Raspbian desktop started. \
+craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop 
+>sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
+
+Inside the file we need to create the following structure:
+>[Desktop Entry]
+>Type=Application \
+>Name=Elf fetcher \
+>Comment=Fetching the elf file \
+>NoDisplay=false \
+>Exec=sudo bash /home/pi/myApplications/elf_fecher.elf   #remember to add "sudo" in your command xD \
+>NotShowIn=GNOME;KDE;XFCE;
+
+
+### Adding google cloud sdk for Debian (from Raspberry by terminal):
 
 - Add the Cloud SDK distribution URI as a package source
 >echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -165,6 +233,7 @@ and then create a new bucket inside this project.
 
 >gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
+
 ## PC GUI Application
 
 - install python 3.8.1:
@@ -180,7 +249,8 @@ https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
 >pip install google-cloud-datastore\
 >pip install google-cloud-storage
 
-**What is the service accounts and keys in google clouds**
+### What is the service accounts and keys in google clouds
+
 What are service accounts?
 A service account is a special kind of account used by an application or a virtual machine (VM) instance, not a person. Applications use service accounts to make authorized API calls.
 For example, a Compute Engine VM may run as a service account, and that account can be given permissions to access the resources it needs. This way the service account is the identity of the service, and the service account's permissions control which resources the service can access.
@@ -192,7 +262,7 @@ Service accounts differ from user accounts in a few key ways:
 •	Cloud IAM permissions can be granted to allow other users (or other service accounts) to impersonate a service account.
 
 
-**Creating Service key account for generating .json file (From cloud.google guides)**
+### Creating Service key account for generating .json file (From cloud.google guides)
 >hint: The python script won't connect to the google cloud server throught the json file if the PC time is not right 
 
 - From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
@@ -230,7 +300,7 @@ Service accounts differ from user accounts in a few key ways:
 
 <img src="images/stepp7.png" width="500">
 
-**Service Account Key Constaints**
+### Service Account Key Constaints
 
 - If this .Json key file that includes all the credentials is shared through any online platform e.g: Github, Whatsapp , …etc. Google’s support immediately notifies the owner through the registered email address and it can be followed by a suspension to the whole project but it can be reopened be requesting an appeal.
 
@@ -242,76 +312,11 @@ Service accounts differ from user accounts in a few key ways:
 
 <img src="images/stepp8.png" width="700">
 
-**PC GUI**
+### PC GUI
  
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
 <img src="images/GUI.PNG" width="500">
-
-## Raspberry Pi GUI
-we're using bash script to generete this GUI by using YAD
-
-- a touch screen is connected to the raspberry Pi as a simulation for Car's dashboard, and we send a notification message to the car on the screen once a new firmware is available and already downloaded to the raspberry Pi
-
-<img src="images/new_firmware.png" width="500">
-
-you can try this GUI by 
->yad --title="3faret El Embedded FOTA project" --list --width=500 --height=200 --column "New Firmware for $controller_name is available. select action" 'Flash now' 'Snooze 5 min' --no-buttons --timeout=60using 
-
-- after the flashing of the new firmware is done, we also notify the car on the screen
-
-<img src="images/flash_done.png" width="500">
-
-you can also try this by:
->yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
-
-## Raspberry Pi touch screen
-we're using 3.5 Inch screen, description of the pins are shown below:
-
-<img src="images/screen_pins.png" width="500">
-
-- Raspberry Pi configurations for 3.5” LCD Display Screen
-
->sudo raspi-config
-
-- Navigate to Boot Options -> Desktop/CLI ,select option B4 Desktop Autologin Desktop GUI, automatically logged in as ‘pi’ user
-
-<img src="images/desktop_option.png" width="500">
-
-- Now again navigate to interfacing options and enable SPI
-
-<img src="images/enable_spi.png" width="500">
-
-**note: you may need to recheck if the UART is enabled**
-
-- now install your Raspberry Pi screen driver
-
->sudo rm -rf LCD-show \
-
->git clone https://github.com/goodtft/LCD-show.git \
-
->chmod -R 755 LCD-show \
-
->cd LCD-show/ \
-
->sudo ./LCD35-show \
-
-now reboot the Raspberry Pi
-
-**note**
-to run our script as a daemon that runs as a "background" process (without a terminal or user interface), \
-we used rc.local before using GUI, but when we added the Raspberry Pi GUI part we had to use "LXDE autostart" instead to load the script when the Raspbian desktop started. \
-craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop 
->sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
-
-Inside the file we need to create the following structure:
->[Desktop Entry]
->Type=Application \
->Name=Elf fetcher \
->Comment=Fetching the elf file \
->NoDisplay=false \
->Exec=sudo bash /home/pi/myApplications/elf_fecher.elf   #remember to add "sudo" in your command xD \
->NotShowIn=GNOME;KDE;XFCE;
 
 
 ## References
