@@ -1,9 +1,9 @@
 # Firmware Over The Air
 
-This project's purpose is to flash a new firmware over the air for automotive industry,
-we used:
->RaspberryPi 3B+ and SdCard
->3.5 Inch Raspberry Pi screen
+This project's purpose is to flash a new firmware over the air for automotive industry, \
+List of components we used:
+>RaspberryPi 3B+ and 16 GB SdCard \
+>3.5 Inch Raspberry Pi screen \
 >STMF103 microcontroller
 
 Till now we are using the full image of raspbian-buster for our Raspberry Pi
