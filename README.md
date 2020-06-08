@@ -1,12 +1,17 @@
-# Firmware_Over_The_Air_RaspberryPi
+# Firmware Over The Air
 
-This project is a firmware over the air for automotive industry using RaspberryPi 3B+ and STm32 Mc 
+This project's purpose is to flash a new firmware over the air for automotive industry,
+we used:
+>RaspberryPi 3B+ and SdCard
+>3.5 Inch Raspberry Pi screen
+>STMF103 microcontroller
 
-Till now we are using the full image of raspbian-buster
+Till now we are using the full image of raspbian-buster for our Raspberry Pi
 
-and also till now we manually put parser.py file and the desired code we want to flash to our st Mc
+## Raspberry Pi
 
-## The image for RaspberryPi
+**The image for Raspberry Pi**
+
 - you can download the Raspian Image from:
 https://www.raspberrypi.org/downloads/raspbian/
 
@@ -45,7 +50,7 @@ To connect with RaspberryPi:
 >ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"\
 >ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
 
-**Enable builtin WIFI**
+**Enable built in WIFI**
 - enter this in terminal to configure wifi
 >sudo raspi-config
 
@@ -73,7 +78,7 @@ add those lines to "/etc/network/interfaces"
 >   netmask 255.255.255.0\
 >   gateway 192.168.1.1
 
-**Configure the UART of the RaspberryPi** 
+**Configure the built in UART of the Raspberry Pi**
 >sudo raspi-config
 
 - select -> interfacing options
@@ -126,7 +131,7 @@ In Raspberry Pi terminal
 
 You can check the references for further help on how they are created.
 
-**Adding python3 lib**
+**Adding python3 library**
 >sudo apt install python3-pyelftools
 
 **google cloud for Raspberry Pi**
@@ -299,7 +304,7 @@ we used rc.local before using GUI, but when we added the Raspberry Pi GUI part w
 craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop 
 >sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
 
-Inside the file we need to create the following structur:
+Inside the file we need to create the following structure:
 >[Desktop Entry]
 >Type=Application \
 >Name=Elf fetcher \
