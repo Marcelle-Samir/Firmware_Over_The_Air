@@ -294,11 +294,12 @@ we're using 3.5 Inch screen, description of the pins are shown below:
 now reboot the Raspberry Pi
 
 **note**
-to run our script as a daemon thst runs as a "background" process (without a terminal or user interface), we used re.local before using GUI, but when we added the Raspberry Pi GUI part we used "LXDE autostart" instead. \
-craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop \
->sudo nano /etc/xdg/autostart/My-Cool-App.desktop \
+to run our script as a daemon that runs as a "background" process (without a terminal or user interface), \
+we used rc.local before using GUI, but when we added the Raspberry Pi GUI part we had to use "LXDE autostart" instead to load the script when the Raspbian desktop started. \
+craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop 
+>sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
 
-Inside the file we need to create the following structur: \
+Inside the file we need to create the following structur:
 >[Desktop Entry]
 >Type=Application \
 >Name=Elf fetcher \
