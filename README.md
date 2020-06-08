@@ -104,6 +104,15 @@ add those lines to "/etc/network/interfaces"
 
 - add "enable_uart=1" at the end of /boot/config.txt
 
+- if you are testing using TTL, connecat as: 
+connect your TTL(Tx) ==>  RaspberryPi (pin 15) Rx and then TTL(Rx) ==> RaspberryPi (pin 14) Tx, and connect TTL(GND) to Raspberry Pi (GND)
+
+- if you are connecting Raspberry Pi to the microcontroller
+connect STMF103 Tx (pin 9) ==> RaspberryPi (pin 15) Rx and then STMF103 (pin 10) Rx ==>  RaspberryPi (pin 14) Tx, and connect STMF103 (GND) to Raspberry Pi (GND)
+
+<img src="images/uart_pins.jpeg" width="200">
+
+
 **In PC(Linux) terminal**
 - to make sure it is connected and given a port name by the kernel use:
 >dmesg  -wH  (ex.  /dev/ttyUSB0 )
@@ -113,15 +122,6 @@ add those lines to "/etc/network/interfaces"
 >sudo cat /dev/ttyUSB0
 - to test writing to (ex. ttyUSB0) :
 >sudo echo "hello" > /dev/ttyUSB0
-
-- if you are testing using TTL, connecat as: 
-connect your TTL(Tx) ==>  RaspberryPi (pin 15) Rx and then TTL(Rx) ==> RaspberryPi (pin 14) Tx, and connect TTL(GND) to Raspberry Pi (GND)
-
-- if you are connecting Raspberry Pi to the microcontroller
-connect STMF103 Tx (pin 9) ==> RaspberryPi (pin 15) Rx and then STMF103 (pin 10) Rx ==>  RaspberryPi (pin 14) Tx, and connect STMF103 (GND) to Raspberry Pi (GND)
-
-<img src="images/uart_pins.jpeg" width="200">
-
 
 **In Raspberry Pi terminal**
 - To check if mini UART (ttyS0) or PL011 UART (ttyAMA0) is mapped to UART pins, enter following commands:
@@ -136,6 +136,9 @@ You can check the references for further help on how they are created.
 
 ### Adding python3 library
 >sudo apt install python3-pyelftools
+
+### Adding xml library
+>sudo apt install xmlstarlet
 
 ### google cloud for Raspberry Pi
 we are using google cloud to fetch the .elf from,\
