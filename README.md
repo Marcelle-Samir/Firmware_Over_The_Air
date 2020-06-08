@@ -18,7 +18,7 @@ https://www.raspberrypi.org/downloads/raspbian/
 >dd bs=4M if=raspbian.img of=/dev/sdX status=progress conv=fsync
 
 
-## Enable Ethernet connection
+**Enable Ethernet connection**
 
 To Configure a static IP for RPI3, Modify the file "/etc/network/interfaces" on your Raspbian image (or any Debian image):
 
@@ -45,7 +45,7 @@ To connect with RaspberryPi:
 >ssh-keygen -f "/home/$USER/.ssh/known_hosts" -R "192.168.5.30"\
 >ssh pi@192.168.5.30 (defualt user: pi, default password: raspberry)
 
-## Enable builtin WIFI
+**Enable builtin WIFI**
 - enter this in terminal to configure wifi
 >sudo raspi-config
 
@@ -62,7 +62,7 @@ To connect with RaspberryPi:
 - then enter this command
 >sudo wpa_cli -i wlan0 reconfigure #it will reply with "OK"
 
-## connect to RaspberryPi terminal over WIFI
+**connect to RaspberryPi terminal over WIFI**
 add those lines to "/etc/network/interfaces"
 >auto wlan0\
 >iface wlan0 inet static\
@@ -73,7 +73,7 @@ add those lines to "/etc/network/interfaces"
 >   netmask 255.255.255.0\
 >   gateway 192.168.1.1
 
-## Configure UART on RaspberryPi 
+**Configure the UART of the RaspberryPi** 
 >sudo raspi-config
 
 - select -> interfacing options
@@ -99,7 +99,7 @@ add those lines to "/etc/network/interfaces"
 
 - add "enable_uart=1" at the end of /boot/config.txt
 
-In PC terminal
+In PC(Linux) terminal
 - to make sure it is connected and given a port name by the kernel use:
 >dmesg  -wH  (ex.  /dev/ttyUSB0 )
 - to change its permissions so you can read and write to it:
@@ -115,7 +115,7 @@ and cobbect TTL(GND) to RaspberryPi(GND)
 <img src="images/uart_pins.jpeg" width="300">
 
 
-In RaspberryPi terminal
+In Raspberry Pi terminal
 - To check if mini UART (ttyS0) or PL011 UART (ttyAMA0) is mapped to UART pins, enter following commands:
 >ls -l /dev
 - to test reading from (ttyS0):
@@ -126,10 +126,10 @@ In RaspberryPi terminal
 
 You can check the references for further help on how they are created.
 
-## Adding python3 lib
+**Adding python3 lib**
 >sudo apt install python3-pyelftools
 
-## google cloud
+**google cloud for Raspberry Pi**
 we are using google cloud to fetch the .elf from,\
 sign in to google cloud using gmail account
 then create a new project
@@ -150,7 +150,7 @@ and then create a new bucket inside this project.
 >sudo apt-get update && sudo apt-get install google-cloud-sdk
 
 - initialize the connection with google cloud and select the project to work on.
-> gcloud init       # you need to run this command @ (root user) to run elf_fetcher.sh at the boot
+> gcloud init       # you need to run this command @ (root user) if you run elf_fetcher.sh at the boot
 
 - to upload a file to google cloud (using Raspberry by terminal)
 
@@ -175,7 +175,7 @@ https://www.python.org/ftp/python/3.8.1/python-3.8.1-amd64.exe
 >pip install google-cloud-datastore\
 >pip install google-cloud-storage
 
-## What is the service accounts and keys in google clouds 
+**What is the service accounts and keys in google clouds**
 What are service accounts?
 A service account is a special kind of account used by an application or a virtual machine (VM) instance, not a person. Applications use service accounts to make authorized API calls.
 For example, a Compute Engine VM may run as a service account, and that account can be given permissions to access the resources it needs. This way the service account is the identity of the service, and the service account's permissions control which resources the service can access.
@@ -187,7 +187,7 @@ Service accounts differ from user accounts in a few key ways:
 •	Cloud IAM permissions can be granted to allow other users (or other service accounts) to impersonate a service account.
 
 
-## Creating Service key account for generating .json file (From cloud.google guides)
+**Creating Service key account for generating .json file (From cloud.google guides)**
 >hint: The python script won't connect to the google cloud server throught the json file if the PC time is not right 
 
 - From Google cloud Platform go to the IAM & Admin Section and select Service Accounts
@@ -225,7 +225,7 @@ Service accounts differ from user accounts in a few key ways:
 
 <img src="images/stepp7.png" width="500">
 
-## Serice Account Key Constaints
+**Service Account Key Constaints**
 
 - If this .Json key file that includes all the credentials is shared through any online platform e.g: Github, Whatsapp , …etc. Google’s support immediately notifies the owner through the registered email address and it can be followed by a suspension to the whole project but it can be reopened be requesting an appeal.
 
@@ -237,7 +237,7 @@ Service accounts differ from user accounts in a few key ways:
 
 <img src="images/stepp8.png" width="700">
 
-## PC GUI
+**PC GUI**
  
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
@@ -292,6 +292,20 @@ we're using 3.5 Inch screen, description of the pins are shown below:
 >sudo ./LCD35-show \
 
 now reboot the Raspberry Pi
+
+**note**
+to run our script as a daemon thst runs as a "background" process (without a terminal or user interface), we used re.local before using GUI, but when we added the Raspberry Pi GUI part we used "LXDE autostart" instead. \
+craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.desktop \
+>sudo nano /etc/xdg/autostart/My-Cool-App.desktop \
+
+Inside the file we need to create the following structur: \
+>[Desktop Entry]
+>Type=Application \
+>Name=Elf fetcher \
+>Comment=Fetching the elf file \
+>NoDisplay=false \
+>Exec=sudo bash /home/pi/myApplications/elf_fecher.elf   #remember to add "sudo" in your command xD \
+>NotShowIn=GNOME;KDE;XFCE;
 
 
 ## References
