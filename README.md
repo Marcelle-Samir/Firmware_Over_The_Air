@@ -54,11 +54,11 @@ To connect with RaspberryPi:
 
 - then select network
 
-<img src="images/network.png" width="500">
+<img src="images/network.png" width="600">
 
 - then select WIFI
 
-<img src="images/wifi.png" width="500">
+<img src="images/wifi.png" width="600">
 
 - then enter WiFi Name (SSID) and password, now you done with raspi-config.
 
@@ -83,23 +83,23 @@ add those lines to "/etc/network/interfaces"
 
 - select -> interfacing options
 
-<img src="images/interfacing_options.jpeg" width="500">
+<img src="images/interfacing_options.jpeg" width="400">
 
 - then, select serial option to enable UART
 
-<img src="images/serial.jpeg" width="500">
+<img src="images/serial.jpeg" width="400">
 
 - then select No to login shell to be accessible over serial
 
-<img src="images/serial__access.jpeg" width="500">
+<img src="images/serial__access.jpeg" width="400">
 
 - then select Yes to enable hardware serial port
 
-<img src="images/uart_enable.jpeg" width="500">
+<img src="images/uart_enable.jpeg" width="400">
 
 - Now our UART is enabled for serial communication on Tx and Rx of RaspberryPi
 
-<img src="images/uart_done.jpeg" width="500">
+<img src="images/uart_done.jpeg" width="400">
 
 
 - add "enable_uart=1" at the end of /boot/config.txt
@@ -149,14 +149,14 @@ we're using bash script to generete this GUI by using **YAD**
 
 - a touch screen is connected to the raspberry Pi as a simulation for Car's dashboard, and we send a notification message to the car on the screen once a new firmware is available and already downloaded to the raspberry Pi
 
-<img src="images/new_firmware.png" width="500">
+<img src="images/new_firmware.png" width="300">
 
 **you can try this GUI by:**
 >yad --title="3faret El Embedded FOTA project" --list --width=500 --height=200 --column "New Firmware for $controller_name is available. select action" 'Flash now' 'Snooze 5 min' --no-buttons --timeout=60using 
 
 - after the flashing of the new firmware is done, we also notify the car on the screen
 
-<img src="images/flash_done.png" width="500">
+<img src="images/flash_done.png" width="300">
 
 **you can also try this by:**
 >yad --title="3faret El Embedded FOTA project" --text="Flashing for $controller_name is done" --width=350 --height=10 --timeout=5  --dnd
@@ -164,7 +164,7 @@ we're using bash script to generete this GUI by using **YAD**
 ### Raspberry Pi touch screen
 we're using 3.5 Inch screen, description of the pins are shown below:
 
-<img src="images/screen_pins.png" width="500">
+<img src="images/screen_pins.png" width="300">
 
 - Raspberry Pi configurations for 3.5” LCD Display Screen
 
@@ -172,11 +172,11 @@ we're using 3.5 Inch screen, description of the pins are shown below:
 
 - Navigate to Boot Options -> Desktop/CLI ,select option B4 Desktop Autologin Desktop GUI, automatically logged in as ‘pi’ user
 
-<img src="images/desktop_option.png" width="500">
+<img src="images/desktop_option.png" width="400">
 
 - Now again navigate to interfacing options and enable SPI
 
-<img src="images/enable_spi.png" width="500">
+<img src="images/enable_spi.png" width="400">
 
 **note: you may need to recheck if the UART is enabled**
 
