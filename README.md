@@ -6,9 +6,9 @@ List of components we used:
 >3.5 Inch Raspberry Pi screen \
 >STMF103 microcontroller
 
-Till now we are using the full image of raspbian-buster for our Raspberry Pi
-
 ## Raspberry Pi
+
+###hello
 
 **The image for Raspberry Pi**
 
