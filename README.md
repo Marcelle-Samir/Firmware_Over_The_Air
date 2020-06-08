@@ -114,10 +114,13 @@ add those lines to "/etc/network/interfaces"
 - to test writing to (ex. ttyUSB0) :
 >sudo echo "hello" > /dev/ttyUSB0
 
-- connect your TTL(Tx) ==> RaspberryPi(Rx) and then TTL(Rx) ==>  RaspberryPi(Tx), pins (GPIO14 and GPIO15)
-and cobbect TTL(GND) to RaspberryPi(GND)
+- if you are testing using TTL, connecat as: 
+connect your TTL(Tx) ==>  RaspberryPi (pin 15) Rx and then TTL(Rx) ==> RaspberryPi (pin 14) Tx, and connect TTL(GND) to Raspberry Pi (GND)
 
-<img src="images/uart_pins.jpeg" width="300">
+- if you are connecting Raspberry Pi to the microcontroller
+connect STMF103 Tx (pin 9) ==> RaspberryPi (pin 15) Rx and then STMF103 (pin 10) Rx ==>  RaspberryPi (pin 14) Tx, and connect STMF103 (GND) to Raspberry Pi (GND)
+
+<img src="images/uart_pins.jpeg" width="200">
 
 
 **In Raspberry Pi terminal**
