@@ -1,5 +1,1 @@
-<data>
-	  <FileName>File.elf</FileName>
-	  <Target>STM32F103</Target>
-	  <Status>Released</Status>
-</data>
+<data><FileName>avrarm.elf</FileName><CarsModel>verna_2018</CarsModel><CarsID>verna_2018_1</CarsID><CarsTarget>STM32F103-1</CarsTarget><Status>Released</Status></data>
