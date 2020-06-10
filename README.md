@@ -213,7 +213,7 @@ Inside the file we need to create the following structure:
 >Name=Elf fetcher \
 >Comment=Fetching the elf file \
 >NoDisplay=false \
->Exec=sudo bash /home/pi/myApplications/elf_fecher.elf   #remember to add "sudo" in your command xD \
+>Exec=sudo bash /home/pi/myApplications/elf_fecher_GUI.elf   #remember to add "sudo" in your command xD \
 >NotShowIn=GNOME;KDE;XFCE;
 
 
