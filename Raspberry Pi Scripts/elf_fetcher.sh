@@ -20,10 +20,6 @@ flag=0
 snooze_count=0
 else_count=0
 
-systemctl is-enabled startup
-systemctl is-active startup
-systemctl restart startup
-
 gsutil -m cp -R gs://fotaproject_bucket/cars_ids.xml /home/pi/
 xmlstarlet ed -u '/cars/verna_2018_1' -v "available" </home/pi/cars_ids.xml>/home/pi/new_status.xml
 mv /home/pi/new_status.xml /home/pi/cars_ids.xml
