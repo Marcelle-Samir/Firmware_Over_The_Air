@@ -250,7 +250,7 @@ and the other one is your desired script to be run right before shutdown /usr/lo
 
 >[Unit] \
 >Description=FOTA_shutdown \
->After=networking.service \
+>After=networking.service
 
 >[Service] \
 >Type=oneshot \
