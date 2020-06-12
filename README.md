@@ -208,7 +208,7 @@ craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.des
 >sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
 
 Inside the file we need to create the following structure:
->[Desktop Entry]
+>[Desktop Entry] \
 >Type=Application \
 >Name=Elf fetcher \
 >Comment=Fetching the elf file \
@@ -281,7 +281,7 @@ make sure that the both files are executable
 
 **Additional commands to enable the service**
 here i'm assuming my service name is "FOTA"
->#use this if you change a service configuration, to reload it
+>#use this if you change a service configuration, to reload it \
 >sudo systemctl daemon-reload \
 >#to enable the service \
 >sudo systemctl enable FOTA.service --now \
@@ -290,7 +290,7 @@ here i'm assuming my service name is "FOTA"
 >#to check if the service is active
 >systemctl is-active FOTA \
 >#service manually triggering \
->sudo restart FOTA
+>sudo systemctl restart FOTA
 
 ## PC GUI Application
 
