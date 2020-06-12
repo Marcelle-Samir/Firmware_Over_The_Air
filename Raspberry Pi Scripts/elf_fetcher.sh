@@ -1,7 +1,7 @@
 #!/bin/bash
 
-my_car_model=verna_2018
-my_car_id=verna_2018_1
+my_car_model=#ex. verna_2018
+my_car_id=#ex. verna_2018_1
 
 ST_INT_pin=18
 AVR_INT_pin=17 
@@ -36,7 +36,7 @@ controller_name=`xmlstarlet sel -T -t -m '/data/CarsTarget' -v . -n /home/pi/Req
 cars_model=`xmlstarlet sel -T -t -m '/data/CarsModel' -v . -n /home/pi/Request.xml`
 cars_id=`xmlstarlet sel -T -t -m '/data/CarsID' -v . -n /home/pi/Request.xml`
 
-if [[ $status_value = "Released" ]] && [[ $cars_model = $my_car_model ]] && [[ $car_id = $my_car_id ]]
+if [[ $status_value -eq "Released" ]] && [[ $cars_model -eq $my_car_model ]] && [[ $car_id -eq $my_car_id ]]
 then
 	if [[ $controller_name = "STM32F103-1" ]]
 	then
@@ -129,7 +129,7 @@ then
 
 	else
 			xmlstarlet ed -u '/data/Status' -v "Error" </home/pi/Request.xml>/home/pi/new.xml
-			mv /home/pi/new.xml /home/pi/Request.xml
+			mv /home/pi/new.xml /home/pi/Request.xmlago
 			gsutil -m cp -R /home/pi/Request.xml gs://fotaproject_bucket/ 	
 	fi
 	
