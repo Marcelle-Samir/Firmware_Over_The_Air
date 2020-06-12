@@ -242,23 +242,27 @@ Inside the file we need to create the following structure:
 ### shutdown script
 
 Create a systemd service \
-we have two files: \ 
+we have two files: \
 one is the service file /etc/systemd/system/FOTA.service \
 and the other one is your desired script to be run right before shutdown /usr/local/bin/FOTA_shutdown
 
 **this is the first one /etc/systemd/system/FOTA.service**
+
 >[Unit] \
 >Description=FOTA_shutdown \
->After=networking.service   #our shutdown script needs internet connection \ 
->[Service]
+>After=networking.service  #our shutdown script needs internet connection \
+
+>[Service] \
 >Type=oneshot \
 >RemainAfterExit=true \
 >ExecStart=/bin/true \
 >ExecStop=/usr/local/bin/FOTA_shutdown \
+
 >[Install] \
 >WantedBy=multi-user.target
 
 **this is the second one /usr/local/bin/FOTA_shutdown**
+
 >#!/bin/sh \
 >echo "do" >> /home/pi/debug.txt \
 >gsutil -m cp -R gs://fotaproject_bucket/cars_ids.xml /home/pi/ >> /home/pi/debug.txt \
@@ -276,7 +280,7 @@ make sure that the both files are executable
 
 
 **Additional commands to enable the service**
->sudo systemctl daemon-reload              #use this if you change a service configuration, to reload it \ 
+>sudo systemctl daemon-reload              #use this if you change a service configuration, to reload it \
 >sudo systemctl enable yourScript.service --now   #to enable the service  \
 >systemctl is-enabled yourScript.service   #to check if the service is enabled \
 >systemctl is-active yourScript.service    #to check if the service is active \
