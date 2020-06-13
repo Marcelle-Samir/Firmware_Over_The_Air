@@ -374,7 +374,7 @@ Service accounts differ from user accounts in a few key ways:
  
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
-<img src="images/GUI.PNG" width="500">
+<img src="images/carGUI.PNG" width="500">
 
 
 ## References
