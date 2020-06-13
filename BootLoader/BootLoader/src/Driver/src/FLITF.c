@@ -101,11 +101,6 @@ typedef struct{
  * @brief 	used to indicate that a Flash operation is completed
  */
 #define EOP							0x00000020
-/**
- * @def 	BUSY 
- * @brief 	used to indicate that a Flash operation is in progress.
- */
-#define BUSY 						0x00000001
 
 void Flash_Lock(void){
 	FPEC->FLASH_CR |= LOCK;
