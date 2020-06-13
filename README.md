@@ -208,7 +208,7 @@ craete a file located in /etc/xdg/autostart and we shall call it My-Cool-App.des
 >sudo nano /etc/xdg/autostart/My-Cool-App.desktop 
 
 Inside the file we need to create the following structure:
->[Desktop Entry]
+>[Desktop Entry] \
 >Type=Application \
 >Name=Elf fetcher \
 >Comment=Fetching the elf file \
@@ -239,6 +239,58 @@ Inside the file we need to create the following structure:
 
 >gsutil -m cp -R gs://[Bucket name]/[file name] <directory to download the file in>
 
+### shutdown script
+
+Create a systemd service \
+we have two files: \
+one is the service file /etc/systemd/system/FOTA.service \
+and the other one is your desired script to be run right before shutdown /usr/local/bin/FOTA_shutdown
+
+**this is the first one:   /etc/systemd/system/FOTA.service**
+
+>[Unit] \
+>Description=FOTA_shutdown \
+>After=networking.service
+
+>[Service] \
+>Type=oneshot \
+>RemainAfterExit=true \
+>ExecStart=/bin/true \
+>ExecStop=/usr/local/bin/FOTA_shutdown
+
+>[Install] \
+>WantedBy=multi-user.target
+
+**this is the second one:   /usr/local/bin/FOTA_shutdown**
+
+>#!/bin/sh \
+>echo "do" >> /home/pi/debug.txt \
+>gsutil -m cp -R gs://fotaproject_bucket/cars_ids.xml /home/pi/ >> /home/pi/debug.txt \
+>xmlstarlet ed -u '/cars/verna_2018_1' -v "unavailable" </home/pi/cars_ids.xml>/home/pi/new_status.xml \
+>echo "xml" >> /home/pi/debug.txt \
+>mv /home/pi/new_status.xml /home/pi/cars_ids.xml \
+>gsutil -m cp -R /home/pi/cars_ids.xml gs://fotaproject_bucket/ >> /home/pi/debug.txt \
+>echo "done" >> /home/pi/debug.txt
+
+**note**
+
+make sure that the both files are executable
+>sudo chmod +x /usr/local/bin/FOTA_shutdown \
+>sudo chmod +x /etc/systemd/system/FOTA.service
+
+
+**Additional commands to enable the service**
+here i'm assuming my service name is "FOTA"
+>#use this if you change a service configuration, to reload it \
+>sudo systemctl daemon-reload \
+>#to enable the service \
+>sudo systemctl enable FOTA.service --now \
+>#to check if the service is enabled \
+>systemctl is-enabled FOTA \
+>#to check if the service is active
+>systemctl is-active FOTA \
+>#service manually triggering \
+>sudo systemctl restart FOTA
 
 ## PC GUI Application
 
@@ -322,7 +374,7 @@ Service accounts differ from user accounts in a few key ways:
  
 - Python script connected to google cloud to upload .elf file and a text file that announces for a new firmware release
 
-<img src="images/GUI.PNG" width="500">
+<img src="images/finalGUI.png" width="500">
 
 
 ## References
@@ -361,6 +413,12 @@ Service accounts differ from user accounts in a few key ways:
 **Raspberry Pi touch screen**
 - https://trickiknow.com/raspberry-pi-3-complete-tutorial-2018-lets-get-started/
 - https://circuitdigest.com/microcontroller-projects/interfacing-3.5-inch-touchscreen-tft-lcd-with-raspberry-pi
+
+**shutdown scripts**
+- https://opensource.com/life/16/11/running-commands-shutdown-linux
+- http://userscripts4systemd.blogspot.com/
+- https://www.certdepot.net/rhel7-get-started-systemd/
+- https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
 
 **others**
 - https://www.raspberrypi.org/documentation/linux/usage/rc-local.md
