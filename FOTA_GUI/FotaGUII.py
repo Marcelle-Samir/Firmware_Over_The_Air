@@ -9,7 +9,7 @@
 ################################################################################
 
 from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
-    QRect, QSize, QUrl, Qt)
+    QRect, QSize, QUrl, Qt, QTimer)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QFont,
     QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
     QRadialGradient)
@@ -31,6 +31,7 @@ from tkinter import messagebox
 
 jsonFile='fotaproject40-31b13f58a47b.json'
 class Ui_Form(object):
+    counter=0
     def setupUi(self, Form):
         if Form.objectName():
             Form.setObjectName(u"Form")
@@ -120,7 +121,7 @@ class Ui_Form(object):
         self.progressBar = QProgressBar(Form)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(615, 137, 241, 26))
-        self.progressBar.setValue(0)
+        #self.progressBar.setValue(0)
         self.label_5 = QLabel(Form)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(510, 130, 111, 31))
@@ -160,6 +161,9 @@ class Ui_Form(object):
         self.label_6.setText(QCoreApplication.translate("Form", u"Car's ID", None))
         self.label_7.setText(QCoreApplication.translate("Form", u"Car's Target", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"Status ", None))
+        self.timer = QTimer()      
+        self.timer.timeout.connect(self.handleTimer)
+
    
     # retranslateUi
     
@@ -239,6 +243,7 @@ class Ui_Form(object):
             msgF.setIcon(QMessageBox.Warning)
             y=msgF.exec_()
         else :
+          self.pushButton_2.setEnabled(False)
           msg2 = QMessageBox()
           msg2.setWindowTitle("Warning")
           msg2.setText("Please Choose a File Path !                    ")
@@ -266,7 +271,7 @@ class Ui_Form(object):
             tree = ET.parse("Request.xml")
             root = tree.getroot()
       
-            
+            self.timer.start(5000)
             
     
             f=open(self.path,"r")
@@ -295,9 +300,9 @@ class Ui_Form(object):
    
               
             
-              self.counter=0
+
               self.flag=0
-              self.checking()
+              #self.checking()
               self.pushButton_2.setEnabled(False)
               self.pushButton.setEnabled(False)
               #self.comboBox.setEnabled(False)
@@ -320,78 +325,172 @@ class Ui_Form(object):
        
         
         
-    def checking(self) :
-      #download xml file
-      try:        
-        client = storage.Client.from_service_account_json(jsonFile)
-        bucket = client.get_bucket('fotaproject_bucket')
-        blob3 = bucket.blob("Request.xml")
-        blob3.download_to_filename("Request.xml") 
-  
-        tree = ET.parse("Request.xml")
-        root = tree.getroot()
-        indx=0
-        tags =  [elem.tag for elem in root.iter()]
-        attrs = [elem.text for elem in root.iter()]
-        self.pushButton_3.setEnabled(False)
-        #read xml parser
-        for i in tags :
-          if i == "Status" :
-            print(attrs[indx])
-            currentStatus=attrs[indx]
-            break
-          indx=indx+1
+    #def checking(self) :
+    #  #download xml file
+    #  try:        
+    #    client = storage.Client.from_service_account_json(jsonFile)
+    #    bucket = client.get_bucket('fotaproject_bucket')
+    #    blob3 = bucket.blob("Request.xml")
+    #    blob3.download_to_filename("Request.xml") 
+    #
+    #    tree = ET.parse("Request.xml")
+    #    root = tree.getroot()
+    #    indx=0
+    #    tags =  [elem.tag for elem in root.iter()]
+    #    attrs = [elem.text for elem in root.iter()]
+    #    self.pushButton_3.setEnabled(False)
+    #    #read xml parser
+    #    for i in tags :
+    #      if i == "Status" :
+    #        print(attrs[indx])
+    #        currentStatus=attrs[indx]
+    #        break
+    #      indx=indx+1
+    #      
+    #    
+    #      
+    #    #check if our action done .. break
+    #    self.counter=self.counter+1
+    #    self.t=threading.Timer(5, self.checking)        
+    #    self.t.start()
+    #    #if currentStatus =="Released" :
+    #    #  #self.progressBar.repaint()
+    #    #  #self.progressBar.reset()
+    #    #  self.progressBar.setValue(33)
+    #    #  self.label_5.setText(QCoreApplication.translate("Form", u"Released ", None))
+    #    #
+    #    #if currentStatus =="Downloaded" :
+    #    #  #self.progressBar.repaint()
+    #    #  #self.progressBar.reset()
+    #    #  self.progressBar.update()
+    #    #  self.progressBar.setValue(66)
+    #    #  self.progressBar.update() 
+    #    #  self.label_5.setText(QCoreApplication.translate("Form", u"Downloaded ", None))
+    #    #  
+    #    #if currentStatus =="Flashed" :
+    #    #  #self.progressBar.repaint()
+    #    #  self.progressBar.update()          
+    #    #  self.progressBar.setValue(99)
+    #    #  self.progressBar.update()          
+    #    #  self.label_5.setText(QCoreApplication.translate("Form", u"Flashed ", None))
+    #      
+    #      
+    #    if currentStatus =="Flashed" or currentStatus == "Error" or self.counter == 12:
+    #   
+    #      self.pushButton_3.setEnabled(True)  
+    #      self.pushButton_2.setEnabled(True)
+    #      self.pushButton.setEnabled(True)
+    #      #self.comboBox.setEnabled(True)
+    #      self.t.cancel()
+    #      print("DONE !")
+    #      #3ayzen nhandle popup window badal el slata de :D
+    #      if self.counter != 12 : 
+    #        print("hey1")
+    #        if currentStatus == "Error" :
+    #          print("hey2")
+    #          root= tk.Tk()
+    #          root.withdraw()
+    #          tk.messagebox.showinfo("Status"," "+currentStatus+"                               ",icon = 'warning')
+    #          #self.progressBar.setValue(0)
+    #          #self.progressBar.setValue(100)
+    #       #   self.progressBar.repaint()
+    #          
+    #          self.label_5.setText(QCoreApplication.translate("Form", u"Status ", None))
+    #      
+    #      
+    #  except Exception as ex1:
+    #    root2= tk.Tk()
+    #    root2.withdraw()
+    #    tk.messagebox.showinfo("Warning","Failed Connecting to server for Downloading the current status  !                    ",icon = 'warning')
+    #    #msg4 = QMessageBox()
+    #    #msg4.setWindowTitle("Warning")
+    #    #msg4.setText("Failed Connecting to server for Downloading the current status  !                    ")
+    #    #msg4.setIcon(QMessageBox.Warning)
+    #    #y=msg4.exec_()
+
+    def handleTimer(self):
+        try:
+          client = storage.Client.from_service_account_json(jsonFile)
+          bucket = client.get_bucket('fotaproject_bucket')
+          blob9 = bucket.blob("Request.xml")
+          blob9.download_to_filename("Request.xml") 
           
+          self.counter=self.counter+1
+          
+          tree = ET.parse("Request.xml")
+          root = tree.getroot()
+          indx=0
+          tags =  [elem.tag for elem in root.iter()]
+          attrs = [elem.text for elem in root.iter()]
+          self.pushButton_3.setEnabled(False)
+          #read xml parser
+          for i in tags :
+            if i == "Status" :
+              print(attrs[indx])
+              currentStatus=attrs[indx]
+              break
+            indx=indx+1
+          
+          if currentStatus =="Released" :
+            #self.progressBar.repaint()
+            #self.progressBar.reset()
+            self.progressBar.setValue(33)
+            self.label_5.setText(QCoreApplication.translate("Form", u"Released ", None))
+          
+          if currentStatus =="Downloaded" :
+            #self.progressBar.repaint()
+            #self.progressBar.reset()
+            #self.progressBar.update()
+            self.progressBar.setValue(66)
+            #self.progressBar.update() 
+            self.label_5.setText(QCoreApplication.translate("Form", u"Downloaded ", None))
+            
+          if currentStatus =="Flashed" :
+            #self.progressBar.repaint()
+            #self.progressBar.update()          
+            self.progressBar.setValue(100)
+            #self.progressBar.update()          
+            self.label_5.setText(QCoreApplication.translate("Form", u"Flashed ", None))
+            time.sleep(2)
+            #print(self.counter)
+          
+          if currentStatus =="Flashed" or currentStatus == "Error" or self.counter == 12:
         
-          
-        #check if our action done .. break
-        self.counter=self.counter+1
-        self.t=threading.Timer(5, self.checking)        
-        self.t.start()
-        if currentStatus =="Released" :
-          self.progressBar.setValue(33)
-          self.label_5.setText(QCoreApplication.translate("Form", u"Released ", None))
+            self.counter=0
+            self.pushButton_3.setEnabled(True)  
+            self.pushButton_2.setEnabled(True)
+            self.pushButton.setEnabled(True)
+            #self.comboBox.setEnabled(True)
+            #self.t.cancel()
+            
+            time.sleep(2)
+            self.progressBar.setValue(0)
+            self.label_5.setText(QCoreApplication.translate("Form", u"Status ", None))
+            self.textEdit.clear()
+            
+            self.timer.stop()
+            #print("DONE !")
+            #3ayzen nhandle popup window badal el slata de :D
+            if self.counter != 12 : 
+              #print("hey1")
+              if currentStatus == "Error" :
+              #  print("hey2")
+                root= tk.Tk()
+                root.withdraw()
+                tk.messagebox.showinfo("Status"," "+currentStatus+"                               ",icon = 'warning')
 
-        if currentStatus =="Downloaded" :
-          self.progressBar.setValue(66)
-          self.label_5.setText(QCoreApplication.translate("Form", u"Downloaded ", None))
-          
-        if currentStatus =="Flashed" :
-          self.progressBar.setValue(99)
-          self.label_5.setText(QCoreApplication.translate("Form", u"Flashed ", None))
-          
-          
-        if currentStatus =="Flashed" or currentStatus == "Error" or self.counter == 12:
-          self.pushButton_3.setEnabled(True)  
-          self.pushButton_2.setEnabled(True)
-          self.pushButton.setEnabled(True)
-          #self.comboBox.setEnabled(True)
-          self.t.cancel()
-          print("DONE !")
-          #3ayzen nhandle popup window badal el slata de :D
-          if self.counter != 12 : 
-            print("hey1")
-            if currentStatus == "Error" :
-              print("hey2")
-              root= tk.Tk()
-              root.withdraw()
-              tk.messagebox.showinfo("Status"," "+currentStatus+"                               ",icon = 'warning')
-              #self.progressBar.setValue(0)
-              self.progressBar.repaint()
-              
-              self.label_5.setText(QCoreApplication.translate("Form", u"Status ", None))
-          
-          
-      except Exception as ex1:
-        root2= tk.Tk()
-        root2.withdraw()
-        tk.messagebox.showinfo("Warning","Failed Connecting to server for Downloading the current status  !                    ",icon = 'warning')
-        #msg4 = QMessageBox()
-        #msg4.setWindowTitle("Warning")
-        #msg4.setText("Failed Connecting to server for Downloading the current status  !                    ")
-        #msg4.setIcon(QMessageBox.Warning)
-        #y=msg4.exec_()
-
+        except Exception as ex1:
+          root2= tk.Tk()
+          root2.withdraw()
+          tk.messagebox.showinfo("Warning","Failed Connecting to server for Downloading the current status  !                    ",icon = 'warning')
+          #msg4 = QMessageBox()
+          #msg4.setWindowTitle("Warning")
+          #msg4.setText("Failed Connecting to server for Downloading the current status  !                    ")
+          #msg4.setIcon(QMessageBox.Warning)
+          #y=msg4.exec_() 
+        
+        
+        
     
     def pushButton_handler3(self):
       try:
