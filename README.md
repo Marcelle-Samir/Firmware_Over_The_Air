@@ -18,14 +18,14 @@ This project's purpose is to flash a new firmware over the air for automotive in
  
 **And then this selected car will:**
 
-> fetches the file from the server \
+> fetch the file from the server \
 and after the car owner confirm to flash now through a Pop-Up window appear on the car's dashboard
 it parses the downloaded file into frames to be sent to the ECU through UART 
 
 **After the flashing is done:**
 
-> another popup window appears on the car's dashboard to notify the user that the flashing is done \
-> also the GUI app. will be notified
+> another Pop-Up window appears on the car's dashboard to notify the user that the flashing is done \
+> also the PC GUI app. will be notified
 
 
 ## Raspberry Pi 
