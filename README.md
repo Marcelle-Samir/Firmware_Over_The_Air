@@ -1,10 +1,32 @@
 # Firmware Over The Air
 
-This project's purpose is to flash a new firmware over the air for automotive industry, \
-List of components we used:
->RaspberryPi 3B+ and 16 GB SdCard \
->3.5 Inch Raspberry Pi screen \
->STMF103 microcontroller
+This project's purpose is to flash a new firmware over the air for automotive industry,
+
+**List of components we used:**
+
+> Raspberry Pi 3B+ and 16 GB SdCard (simulates the car) \
+> 3.5 Inch Raspberry Pi screen (simulates car's dashboard) \
+> STMF103 microcontroller (simulates car's ECU) \
+> Google Cloud Server (the bridge between the car and the company) \
+> PC GUI APP. ( the company uses to upload the Firmware to the server)
+
+**Through the GUI the company selects:**
+
+> the new firmware file \
+> the car's model \
+> a specific car's ID from the available cars in that model
+ 
+**And then this selected car will:**
+
+> fetches the file from the server \
+and after the car owner confirm to flash now through a Pop-Up window appear on the car's dashboard
+it parses the downloaded file into frames to be sent to the ECU through UART 
+
+**After the flashing is done:**
+
+> another popup window appears on the car's dashboard to notify the user that the flashing is done 
+> also the GUI app. will be notified
+
 
 ## Raspberry Pi 
 
