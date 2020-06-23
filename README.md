@@ -24,7 +24,7 @@ it parses the downloaded file into frames to be sent to the ECU through UART
 
 **After the flashing is done:**
 
-> another popup window appears on the car's dashboard to notify the user that the flashing is done 
+> another popup window appears on the car's dashboard to notify the user that the flashing is done \
 > also the GUI app. will be notified
 
 
