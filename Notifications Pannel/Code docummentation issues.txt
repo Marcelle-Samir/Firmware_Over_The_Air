@@ -1,3 +1,3 @@
-1- DMA.h: 7ot  Notify_t ta7t el TC,HTC,TE.
-2-HUART.c: RCC_GetBusClock 5leeha DRCC...
-3-DRCC.c : gowa DRCC getbus clock feeh rcc_get systemclk 5leeha bardo drcc
+1- DMA.h: 7ot  Notify_t ta7t el TC,HTC,TE.	-solved-
+2-HUART.c: RCC_GetBusClock 5leeha DRCC...	-solved-
+3-DRCC.c : gowa DRCC getbus clock feeh rcc_get systemclk 5leeha bardo drcc	-solved-

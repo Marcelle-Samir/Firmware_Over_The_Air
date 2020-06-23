@@ -1,0 +1,22 @@
+- Introduction
+	-- Y3ni eh FOTA b shakl 3am. (gomla wa7da)
+	-- methods ezay kona n3mel el FOTA.
+	-- Final design- system bta3na 3obara 3an eh (included block diagram).
+-Software Process Management
+	-- Sprints and targets.
+	-- Resources utilization (eshtreena eh).
+- Python GUI Application
+	-- Timeline.
+	-- Design.
+	-- Application operation.
+- Server.
+	-- Comparison between several servers and why Google cloud.
+	-- Google cloud features.
+- Raspberry pi 
+	-- Why raspberry pi not node MCU.
+	-- Timeline of development.
+	-- Scripts and features of these scripts.
+- Bootloader (Frames and data flow)
+	-- Frames blockdiagram.
+- Demo Analysis
+	-- Voice Over.
