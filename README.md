@@ -33,7 +33,7 @@ it parses the downloaded file into frames to be sent to the ECU through UART
 
 ### The image for Raspberry Pi
 
-- you can download the Raspian Image from:
+- you can download the Raspbian Image from:
 https://www.raspberrypi.org/downloads/raspbian/
 
 - First unzip the the downloaded file using unzip command.
