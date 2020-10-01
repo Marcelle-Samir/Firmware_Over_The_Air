@@ -445,3 +445,4 @@ Service accounts differ from user accounts in a few key ways:
 
 **others**
 - https://www.raspberrypi.org/documentation/linux/usage/rc-local.md
+- http://www.thomasloven.com/blog/2013/08/Loading-Elf/
